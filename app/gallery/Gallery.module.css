@@ -1,0 +1,38 @@
+.galleryContainer {
+  padding: 24px;
+}
+.uploadBar {
+  margin-bottom: 16px;
+}
+.fileInput {
+  display: none;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  background: #fafafa;
+  position: relative;
+}
+.cardEditing {
+  border: 2px solid #0070f3;
+}
+.buttonBar {
+  margin-top: 8px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.deleteButton {
+  color: red;
+}
+.imageName {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}

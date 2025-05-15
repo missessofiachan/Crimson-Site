@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       message: completion.choices[0].message.content,
     });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const err = error as Error;
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

@@ -1,16 +1,24 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../../auth/[...nextauth]/route";
 import { ObjectId } from "mongodb";
+
+// Helper function to check for admin session
+async function getAdminSession() {
+  const session = await getServerSession();
+  if (!session || !session.user || session.user.role !== "admin") {
+    return null;
+  }
+  return session;
+}
 
 // GET: Fetch a specific store item
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
+    const { id } = context.params;
 
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
@@ -39,22 +47,22 @@ export async function GET(
 
 // PUT: Update a store item (admin only)
 export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     // Check for admin session
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "admin") {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = context.params;
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
     }
 
-    const { name, description, price, imageUrl, category } = await req.json();
+    const { name, description, price, imageUrl, category } = await request.json();
 
     // Validate required fields
     if (!name || !description || !price) {
@@ -101,17 +109,17 @@ export async function PUT(
 
 // DELETE: Delete a store item (admin only)
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     // Check for admin session
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "admin") {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = params;
+    const id = context.params.id;
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
     }

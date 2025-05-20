@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../auth/[...nextauth]/route";
 import { ObjectId } from "mongodb";
+
+// Helper function to check for admin session
+async function getAdminSession() {
+  const session = await getServerSession();
+  if (!session || !session.user || session.user.role !== "admin") {
+    return null;
+  }
+  return session;
+}
 
 // GET: Fetch all store items
 export async function GET(req: Request) {
@@ -65,8 +73,8 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     // Check for admin session
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "admin") {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

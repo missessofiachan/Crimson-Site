@@ -3,7 +3,7 @@ import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { ObjectId } from "mongodb";
 
-// Helper: get admin session (safe user check)
+// Helper function to check for admin session
 async function getAdminSession() {
   const session = await getServerSession();
   if (!session || !session.user || session.user.role !== "admin") {
@@ -14,11 +14,11 @@ async function getAdminSession() {
 
 // GET: Fetch a specific category
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const id = params.id;
+    const id = context.params.id;
     
     if (!ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -53,8 +53,8 @@ export async function GET(
 
 // PUT: Update a category (admin only)
 export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     // Check for admin session
@@ -63,7 +63,7 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     
-    const id = params.id;
+    const id = context.params.id;
     
     if (!ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -72,7 +72,7 @@ export async function PUT(
       );
     }
     
-    const { name, description } = await req.json();
+    const { name, description } = await request.json();
     
     // Validate required fields
     if (!name) {
@@ -137,8 +137,8 @@ export async function PUT(
 
 // DELETE: Delete a category (admin only)
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     // Check for admin session
@@ -147,7 +147,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     
-    const id = params.id;
+    const id = context.params.id;
     
     if (!ObjectId.isValid(id)) {
       return NextResponse.json(

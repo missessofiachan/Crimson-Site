@@ -3,7 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import clientPromise from "@/lib/mongodb";
 
-export const authOptions = {
+// DO NOT export authOptions directly. Only export the handler.
+const authOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",

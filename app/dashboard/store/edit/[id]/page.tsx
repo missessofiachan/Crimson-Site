@@ -261,8 +261,9 @@ export default function EditStorePage({ params }: { params: { id: string } }) {
           {uploadProgress > 0 && uploadProgress < 100 && (
             <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
               <div 
-                className="bg-crimson-dark h-2.5 rounded-full" 
-                style={{ width: `${uploadProgress}%` }}
+                className="bg-crimson-dark h-2.5 rounded-full"
+                data-progress={uploadProgress}
+                style={{ width: undefined }}
               ></div>
             </div>
           )}

@@ -1,0 +1,164 @@
+.progressBar {
+  width: 100%;
+  background-color: #E5E7EB; /* bg-gray-200 */
+  border-radius: 9999px; /* rounded-full */
+  height: 0.625rem; /* h-2.5 */
+  margin-top: 0.5rem; /* mt-2 */
+  overflow: hidden; /* Added to ensure fill doesn't overflow */
+}
+
+.progressFill {
+  background-color: var(--crimson-dark);
+  height: 0.625rem; /* h-2.5 */
+  border-radius: 9999px; /* rounded-full */
+  transition: width 0.3s ease;
+}
+
+/* Progress fill width classes */
+.progress0 { width: 0%; }
+.progress10 { width: 10%; }
+.progress20 { width: 20%; }
+.progress30 { width: 30%; }
+.progress40 { width: 40%; }
+.progress50 { width: 50%; }
+.progress60 { width: 60%; }
+.progress70 { width: 70%; }
+.progress80 { width: 80%; }
+.progress90 { width: 90%; }
+.progress100 { width: 100%; }
+
+.imageContainer {
+  position: relative;
+  height: 10rem;
+  width: 10rem;
+}
+
+.imagePreview {
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.previewSection {
+  margin-top: 1rem;
+}
+
+.previewText {
+  font-size: 0.875rem;
+  color: #4B5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Form styles */
+.formContainer {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroupLarge {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  display: block;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.25rem;
+  background-color: white;
+  color: #1F2937;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.25rem;
+  background-color: white;
+  color: #1F2937;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.25rem;
+  background-color: white;
+  color: #1F2937;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.fileInput {
+  display: block;
+  width: 100%;
+  color: #1F2937;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submitButton {
+  background-color: var(--crimson-dark);
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--crimson);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  display: inline-block;
+  vertical-align: baseline;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #6B7280;
+  transition: color 0.2s;
+}
+
+.cancelButton:hover {
+  color: #374151;
+}

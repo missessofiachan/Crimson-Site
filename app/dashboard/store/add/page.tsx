@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from '../../Dashboard.module.css';
+import addStyles from './AddStore.module.css';
+import { ProgressBar } from './ProgressBar';
 
 interface Category {
   _id: string;
@@ -28,9 +30,8 @@ export default function AddStorePage() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
-
   // Check if user is admin
-  if (status === 'authenticated' && session?.user?.role !== 'admin') {
+  if (status === 'authenticated' && session?.user && session.user.role !== 'admin') {
     router.push('/dashboard');
     return null;
   }
@@ -165,14 +166,13 @@ export default function AddStorePage() {
           {error}
         </div>
       )}
-      
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+        <form onSubmit={handleSubmit} className={addStyles.formContainer}>
+        <div className={addStyles.formGroup}>
+          <label className={addStyles.label} htmlFor="name">
             Item Name *
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={addStyles.input}
             id="name"
             type="text"
             value={name}
@@ -181,12 +181,12 @@ export default function AddStorePage() {
           />
         </div>
         
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+        <div className={addStyles.formGroup}>
+          <label className={addStyles.label} htmlFor="description">
             Description *
           </label>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={addStyles.textarea}
             id="description"
             rows={4}
             value={description}
@@ -195,12 +195,12 @@ export default function AddStorePage() {
           />
         </div>
         
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+        <div className={addStyles.formGroup}>
+          <label className={addStyles.label} htmlFor="price">
             Price ($) *
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={addStyles.input}
             id="price"
             type="number"
             step="0.01"
@@ -211,11 +211,12 @@ export default function AddStorePage() {
           />
         </div>
         
-        <div className="mb-4">          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+        <div className={addStyles.formGroup}>
+          <label className={addStyles.label} htmlFor="category">
             Category
           </label>
           <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={addStyles.select}
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -234,12 +235,11 @@ export default function AddStorePage() {
           </select>
         </div>
         
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+        <div className={addStyles.formGroupLarge}>
+          <label className={addStyles.label} htmlFor="image">
             Item Image
-          </label>
-          <input
-            className="block w-full text-gray-700 border border-gray-200 rounded py-2 px-3"
+          </label>          <input
+            className={addStyles.fileInput}
             id="image"
             type="file"
             accept="image/*"
@@ -247,40 +247,34 @@ export default function AddStorePage() {
           />
           
           {uploadProgress > 0 && uploadProgress < 100 && (
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-              <div 
-                className="bg-crimson-dark h-2.5 rounded-full" 
-                style={{ width: `${uploadProgress}%` }}
-              ></div>
-            </div>
+            <ProgressBar progress={uploadProgress} />
           )}
           
           {imagePreview && (
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-2">Image Preview:</p>
-              <div className="relative h-40 w-40">
+            <div className={addStyles.previewSection}>
+              <p className={addStyles.previewText}>Image Preview:</p>
+              <div className={addStyles.imageContainer}>
                 <Image 
                   src={imagePreview} 
                   alt="Preview" 
                   fill 
-                  style={{ objectFit: 'cover' }}
-                  className="rounded"
+                  className={addStyles.imagePreview}
                 />
               </div>
             </div>
           )}
         </div>
         
-        <div className="flex items-center justify-between">
+        <div className={addStyles.buttonContainer}>
           <button
-            className="bg-crimson-dark hover:bg-crimson text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className={addStyles.submitButton}
             type="submit"
             disabled={loading}
           >
             {loading ? 'Creating...' : 'Create Item'}
           </button>
           <button
-            className="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-700"
+            className={addStyles.cancelButton}
             type="button"
             onClick={() => router.back()}
           >

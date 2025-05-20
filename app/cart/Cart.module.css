@@ -1,0 +1,240 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  color: var(--crimson-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Empty Cart */
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.emptyCartIcon {
+  color: var(--crimson-dark);
+  margin-bottom: 1rem;
+}
+
+.emptyCart h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptyCart p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Cart Items */
+.cartItems {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.cartHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.cartItem {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.noImage {
+  width: 80px;
+  height: 80px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #666;
+  border-radius: 4px;
+}
+
+.productName {
+  font-weight: 500;
+}
+
+/* Quantity Controls */
+.quantityControl {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 120px;
+}
+
+.quantityControl button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantityControl button:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.quantityControl button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantityControl span {
+  min-width: 30px;
+  text-align: center;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #dc143c;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.25rem;
+}
+
+.removeButton:hover {
+  color: #ff0000;
+}
+
+/* Cart Summary */
+.cartSummary {
+  padding: 1.5rem;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.summaryTotal {
+  font-weight: bold;
+  font-size: 1.25rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.checkoutButton {
+  display: block;
+  width: 100%;
+  background-color: var(--crimson-dark);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkoutButton:hover:not(:disabled) {
+  background-color: var(--crimson);
+}
+
+.checkoutButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.continueShopping {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--crimson-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.continueShopping:hover {
+  color: var(--crimson);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cartHeader {
+    display: none;
+  }
+  
+  .cartItem {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .priceColumn, .quantityColumn, .totalColumn, .actionColumn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .priceColumn::before {
+    content: 'Price:';
+    font-weight: 500;
+  }
+  
+  .quantityColumn::before {
+    content: 'Quantity:';
+    font-weight: 500;
+  }
+  
+  .totalColumn::before {
+    content: 'Total:';
+    font-weight: 500;
+  }
+  
+  .actionColumn {
+    justify-content: flex-end;
+  }
+}

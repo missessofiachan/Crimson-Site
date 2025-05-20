@@ -10,6 +10,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - Todo list with MongoDB backend (`/Todo`)
 - Gallery page (`/gallery`)
 - **Contact Us** page with styled form (`/contact`)
+- **User System** with authentication and admin controls
+- **Store Management System** with image uploads
 - Responsive design and custom theming
 
 ## Getting Started
@@ -36,8 +38,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `app/cat-fact/` - Cat Fact generator
 - `app/Todo/` - Todo list (with MongoDB integration)
 - `app/gallery/` - Gallery page
-- `app/api/` - API routes (chat, mongo)
-- `public/` - Static assets
+- `app/store/` - Public store page to display items
+- `app/dashboard/` - Admin dashboard with store management
+- `app/login/` and `app/register/` - User authentication pages
+- `app/api/` - API routes (chat, mongo, auth, store items)
+- `public/` - Static assets including uploaded images
 
 ## Contact Form
 

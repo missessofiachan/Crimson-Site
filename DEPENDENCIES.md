@@ -87,6 +87,22 @@ This document explains each dependency in your project, why it is used, and wher
 - **typescript**: TypeScript language support for static typing in JavaScript.
   - Usage: Used throughout the project for type safety in all `.ts`/`.tsx` files.
 
+## Known Issues
+
+- **Punycode Deprecation Warning**: The punycode module is deprecated and will be removed from Node.js. This warning comes from a dependency and not from your direct code. It's usually triggered by the `uri-js` package which is used by many validation libraries. This doesn't affect functionality but may show as a warning during build.
+
+## Deployment Configuration
+
+Several configuration files have been added or updated to improve Vercel deployment:
+
+- **vercel.json**: Configuration for Vercel deployment with environment variables, build settings, and security headers.
+- **.nvmrc**: Specifies Node.js version 18 for compatibility with Next.js 15.x.
+- **tailwind.config.mjs**: Updated configuration for Tailwind CSS 4.
+- **postcss.config.mjs**: Updated to use proper plugin syntax compatible with latest versions.
+- **next.config.ts**: Enhanced with additional configuration for image optimization and module issues.
+
+See the `DEPLOYMENT-GUIDE.md` file for detailed troubleshooting steps when deploying to Vercel.
+
 ---
 
 

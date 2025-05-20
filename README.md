@@ -68,4 +68,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
+### Deployment Checklist
+
+1. **Environment Variables**: Make sure to set all required environment variables in Vercel dashboard:
+   - `MONGODB_URI`: Your MongoDB connection string
+   - `MONGODB_DB`: Your database name
+   - `NEXTAUTH_SECRET`: A random string for NextAuth.js
+   - `NEXTAUTH_URL`: Your deployment URL
+
+2. **Node.js Version**: Ensure you're using Node.js 18.x or later (required for Next.js 15.x)
+   - You can specify this in Vercel's dashboard under Project Settings > General > Node.js Version
+
+3. **Punycode Warning**: Ignore any punycode deprecation warnings during build, they come from a dependency
+
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

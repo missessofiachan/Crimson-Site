@@ -1,12 +1,12 @@
 {
   "name": "nextjs",
   "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
+  "private": true,  "scripts": {
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "echo 'Installed dependencies successfully!'"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.9.1",
@@ -28,9 +28,8 @@
     "sharp": "^0.34.1",
     "uuid": "^11.1.0",
     "zod": "^3.25.7"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+  },  "devDependencies": {
+    "autoprefixer": "^10.4.17",
     "@types/mongodb": "^4.0.6",
     "@types/next": "^8.0.7",
     "@types/node": "^20.17.47",

@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
-// Update the path below to the correct location of your authOptions export
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ObjectId } from "mongodb";
+
+// Helper: get admin session (safe user check)
+async function getAdminSession() {
+  const session = await getServerSession();
+  if (!session || !session.user || session.user.role !== "admin") {
+    return null;
+  }
+  return session;
+}
 
 // GET: Fetch a specific category
 export async function GET(
@@ -51,8 +58,8 @@ export async function PUT(
 ) {
   try {
     // Check for admin session
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "admin") {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     
@@ -135,8 +142,8 @@ export async function DELETE(
 ) {
   try {
     // Check for admin session
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "admin") {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     

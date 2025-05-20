@@ -1,4 +1,16 @@
+# Crimson-Site
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Features
+
+- Modern Next.js app directory structure
+- Chatbot powered by OpenRouter/Meta Llama (see `/chat`)
+- Cat Fact generator (`/cat-fact`)
+- Todo list with MongoDB backend (`/Todo`)
+- Gallery page (`/gallery`)
+- **Contact Us** page with styled form (`/contact`)
+- Responsive design and custom theming
 
 ## Getting Started
 
@@ -16,9 +28,27 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` - Main application directory (pages, components, API routes)
+- `app/contact/` - Contact form page and styles
+- `app/chat/` - Chatbot page and styles
+- `app/cat-fact/` - Cat Fact generator
+- `app/Todo/` - Todo list (with MongoDB integration)
+- `app/gallery/` - Gallery page
+- `app/api/` - API routes (chat, mongo)
+- `public/` - Static assets
+
+## Contact Form
+
+The Contact Us page (`/contact`) features a modern, accessible form with validation and theming. You can customize the form logic in `app/contact/ContactForm.tsx`.
+
+## Environment Variables
+
+Some features (like chat and todo) require environment variables:
+
+- `OPENROUTER_API_KEY` for chat API
+- MongoDB connection string for todo API
 
 ## Learn More
 

@@ -1,7 +1,8 @@
 {
   "name": "nextjs",
   "version": "0.1.0",
-  "private": true,  "scripts": {
+  "private": true,
+  "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -28,13 +29,15 @@
     "sharp": "^0.34.1",
     "uuid": "^11.1.0",
     "zod": "^3.25.7"
-  },  "devDependencies": {
-    "autoprefixer": "^10.4.17",
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/mongodb": "^4.0.6",
     "@types/next": "^8.0.7",
     "@types/node": "^20.17.47",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

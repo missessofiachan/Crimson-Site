@@ -11,7 +11,7 @@ export default function CatFactPage() {
     async function fetchData() {
       setLoading(true);
       
-      // Use the correct cat fact API endpoint
+      
       const factRes = await fetch('https://catfact.ninja/fact');
       const factData = await factRes.json();
       setFact(factData.fact);

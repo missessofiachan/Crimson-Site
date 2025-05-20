@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import clientPromise from "@/lib/mongodb";
 
 // This endpoint is used to create the initial admin account
-// In a production environment, this should be more secure
+
 export async function POST(req: Request) {
   try {
     const { name, email, password, setupKey } = await req.json();

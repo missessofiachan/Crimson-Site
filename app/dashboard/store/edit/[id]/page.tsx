@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -15,8 +16,8 @@ interface StoreItem {
   category: string;
 }
 
-export default function EditStorePage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function EditStorePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const { data: session, status } = useSession();
   const router = useRouter();
   

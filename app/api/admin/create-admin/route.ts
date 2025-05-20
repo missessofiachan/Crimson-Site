@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import clientPromise from "@/lib/mongodb";
 
 // This is a protected route to create an admin user
-// In a real application, you'd want to make this more secure
 export async function POST(req: Request) {
   try {
     const { name, email, password, secretKey } = await req.json();

@@ -33,8 +33,9 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          {children}
-          <Footer />
+          <main className="pt-20">{/* Adjust pt-20 as needed to match Navbar height */}
+            {children}
+          </main>
           <ToastProvider />
         </Providers>
       </body>

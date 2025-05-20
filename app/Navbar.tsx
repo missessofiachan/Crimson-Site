@@ -20,6 +20,7 @@ export default function Navbar() {
           <li><Link href="/store" className="hover:text-crimson-light">Store</Link></li>
           <li><Link href="/chat" className="hover:text-crimson-light">Chat</Link></li>
           <li><Link href="/contact" className="hover:text-crimson-light">Contact</Link></li>
+          <li><Link href="/cat-fact" className="hover:text-crimson-light">Cat Fact</Link></li>
           
           {/* Cart Link with counter */}
           <li>

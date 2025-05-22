@@ -58,7 +58,7 @@
 
 .loginButton {
   background-color: var(--crimson-dark);
-  color: white;
+  color: #fff;
   font-weight: bold;
   padding: 0.75rem 1.5rem;
   border: none;

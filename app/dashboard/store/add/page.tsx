@@ -27,14 +27,17 @@ export default function AddStorePage() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [uploadProgress, setUploadProgress] = useState(0);  const [categories, setCategories] = useState<Category[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
-  // Check if user is admin
-  if (status === 'authenticated' && session?.user && session.user.role !== 'admin') {
-    router.push('/dashboard');
-    return null;
-  }
+  
+  // Check if user is authenticated and admin
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login?callbackUrl=/dashboard/store/add');
+    } else if (status === 'authenticated' && session?.user && session.user.role !== 'admin') {
+      router.push('/dashboard');
+    }
+  }, [status, session, router]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;

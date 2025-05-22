@@ -2,11 +2,17 @@ import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { ObjectId } from "mongodb";
+import { authOptions } from "@/lib/authOptions";
 
 // Helper function to check for admin session
 async function getAdminSession() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session || !session.user || session.user.role !== "admin") {
+    console.log('Admin check failed:', { 
+      hasSession: !!session, 
+      hasUser: !!(session && session.user), 
+      role: session?.user?.role 
+    });
     return null;
   }
   return session;
@@ -15,10 +21,10 @@ async function getAdminSession() {
 // GET: Fetch a specific store item
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
 
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
@@ -48,7 +54,7 @@ export async function GET(
 // PUT: Update a store item (admin only)
 export async function PUT(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check for admin session
@@ -57,7 +63,7 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = context.params;
+    const { id } = await context.params;
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
     }
@@ -110,7 +116,7 @@ export async function PUT(
 // DELETE: Delete a store item (admin only)
 export async function DELETE(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check for admin session
@@ -119,7 +125,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const id = context.params.id;
+    const { id } = await context.params;
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid item ID" }, { status: 400 });
     }

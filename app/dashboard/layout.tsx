@@ -15,9 +15,8 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const router = useRouter();
   const isAdmin = useIsAdmin();
-  
-  if (loading) {
-    return <div>Loading...</div>;
+    if (loading) {
+    return <div className="text-gray-800 p-4">Loading...</div>;
   }
 
   // Check if current path is active

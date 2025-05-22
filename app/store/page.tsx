@@ -173,13 +173,13 @@ export default function StorePage() {
           <div className={styles.grid}>
             {items.map(item => (
               <div key={item._id} className={styles.card}>
-                <div className={styles.imageContainer}>
-                  {item.imageUrl ? (
+                <div className={styles.imageContainer}>                  {item.imageUrl ? (
                     <Image
                       src={item.imageUrl}
                       alt={item.name}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      style={{ objectFit: 'contain' }}
                     />
                   ) : (
                     <div className={styles.noImage}>No image available</div>

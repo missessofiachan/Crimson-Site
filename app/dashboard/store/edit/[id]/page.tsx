@@ -169,9 +169,8 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
       setLoading(false);
     }
   };
-
   if (fetchLoading) {
-    return <div>Loading item data...</div>;
+    return <div className="text-gray-800">Loading item data...</div>;
   }
 
   return (
@@ -258,8 +257,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
           <div className="text-xs text-gray-500 mt-1">
             {imageUrl ? 'Upload new image to replace the current one' : 'No image currently set'}
           </div>
-          
-          {uploadProgress > 0 && uploadProgress < 100 && (
+            {uploadProgress > 0 && uploadProgress < 100 && (
             <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
               <div 
                 className={`bg-crimson-dark h-2.5 rounded-full ${styles.uploadProgressBar}`}

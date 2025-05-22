@@ -115,17 +115,14 @@ export default function CategoriesPage() {
 
   return (
     <div>
-      <h1 className={styles.pageTitle}>Category Management</h1>
-
-      <div className="mb-6">
-        <p className="mb-4">Manage your product categories below</p>
+      <h1 className={styles.pageTitle}>Category Management</h1>      <div className="mb-6">
+        <p className="mb-4 text-gray-800">Manage your product categories below</p>
         
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-          <h2 className="text-xl font-semibold mb-4">Add New Category</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Add New Category</h2>
           
-          <form onSubmit={handleAddCategory}>
-            <div className="mb-4">
-              <label htmlFor="categoryName" className="block text-sm font-medium text-gray-700 mb-1">
+          <form onSubmit={handleAddCategory}>            <div className="mb-4">
+              <label htmlFor="categoryName" className="block text-sm font-medium text-gray-800 mb-1">
                 Category Name *
               </label>
               <input
@@ -133,20 +130,19 @@ export default function CategoriesPage() {
                 id="categoryName"
                 value={newCategory.name}
                 onChange={e => setNewCategory({ ...newCategory, name: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
                 required
               />
             </div>
             
             <div className="mb-4">
-              <label htmlFor="categoryDescription" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="categoryDescription" className="block text-sm font-medium text-gray-800 mb-1">
                 Description (Optional)
-              </label>
-              <textarea
+              </label>              <textarea
                 id="categoryDescription"
                 value={newCategory.description}
                 onChange={e => setNewCategory({ ...newCategory, description: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
                 rows={3}
               />
             </div>
@@ -166,35 +162,31 @@ export default function CategoriesPage() {
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
         </div>
-      )}
-
-      {loading ? (
-        <div className="text-center py-12">Loading categories...</div>
+      )}      {loading ? (
+        <div className="text-center py-12 text-gray-800">Loading categories...</div>
       ) : (
-        <>
-          <div className="overflow-x-auto">
+        <>          <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-200">
-              <thead>
+              <thead className="bg-gray-100">
                 <tr>
-                  <th className="py-2 px-4 border-b">Name</th>
-                  <th className="py-2 px-4 border-b">Description</th>
-                  <th className="py-2 px-4 border-b">Created At</th>
-                  <th className="py-2 px-4 border-b">Actions</th>
+                  <th className="py-2 px-4 border-b text-gray-800">Name</th>
+                  <th className="py-2 px-4 border-b text-gray-800">Description</th>
+                  <th className="py-2 px-4 border-b text-gray-800">Created At</th>
+                  <th className="py-2 px-4 border-b text-gray-800">Actions</th>
                 </tr>
-              </thead>
-              <tbody>
+              </thead>              <tbody>
                 {categories.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="py-4 px-4 text-center">
+                    <td colSpan={4} className="py-4 px-4 text-center text-gray-800">
                       No categories found. Add your first category!
                     </td>
                   </tr>
                 ) : (
                   categories.map(category => (
-                    <tr key={category._id}>
-                      <td className="py-2 px-4 border-b">{category.name}</td>
-                      <td className="py-2 px-4 border-b">{category.description || '-'}</td>
-                      <td className="py-2 px-4 border-b">
+                    <tr key={category._id} className="hover:bg-gray-50">
+                      <td className="py-2 px-4 border-b text-gray-800">{category.name}</td>
+                      <td className="py-2 px-4 border-b text-gray-800">{category.description || '-'}</td>
+                      <td className="py-2 px-4 border-b text-gray-800">
                         {new Date(category.createdAt).toLocaleDateString()}
                       </td>
                       <td className="py-2 px-4 border-b">

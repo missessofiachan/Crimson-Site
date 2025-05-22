@@ -7,33 +7,29 @@ export default function DashboardPage() {
   const { data: session } = useSession();
   
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Dashboard</h1>
+    <div>      <h1 className={styles.pageTitle}>Dashboard</h1>
       
-      <p>Welcome back, {session?.user?.name}!</p>
-      
-      <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Quick Navigation</h2>
+      <p className="text-gray-800">Welcome back, {session?.user?.name}!</p>
+        <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4 text-gray-800">Quick Navigation</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {session?.user?.role === 'admin' && (
-            <>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="text-lg font-semibold mb-2">Store Management</h3>
+            <>              <div className="bg-white p-6 rounded-lg shadow">
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">Store Management</h3>
                 <p className="text-gray-600 mb-4">Manage your store items, add new products, update prices and more.</p>
                 <a href="/dashboard/store" className="text-crimson-dark hover:underline">View Store Items →</a>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="text-lg font-semibold mb-2">Add New Item</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">Add New Item</h3>
                 <p className="text-gray-600 mb-4">Add a new product to your store with images, description and pricing.</p>
                 <a href="/dashboard/store/add" className="text-crimson-dark hover:underline">Add Item →</a>
               </div>
             </>
           )}
-          
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-lg font-semibold mb-2">Your Profile</h3>
+            <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-2 text-gray-800">Your Profile</h3>
             <p className="text-gray-600 mb-4">View and update your profile information.</p>
             <a href="/dashboard/profile" className="text-crimson-dark hover:underline">Go to Profile →</a>
           </div>

@@ -2,11 +2,18 @@ import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { ObjectId } from "mongodb";
+import { authOptions } from "@/lib/authOptions";
 
 // Helper function to check for admin session
 async function getAdminSession() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
+  
   if (!session || !session.user || session.user.role !== "admin") {
+    console.log('Admin check failed:', { 
+      hasSession: !!session, 
+      hasUser: !!(session && session.user), 
+      role: session?.user?.role 
+    });
     return null;
   }
   return session;

@@ -36,12 +36,11 @@ export default function ProfilePage() {
           {success}
         </div>
       )}
-      
-      <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-lg shadow text-gray-800">
         {isEditing ? (
           <form onSubmit={handleUpdateProfile}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              <label className="block text-gray-800 text-sm font-bold mb-2" htmlFor="name">
                 Name
               </label>
               <input
@@ -52,26 +51,25 @@ export default function ProfilePage() {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              <div className="mb-4">
+              <label className="block text-gray-800 text-sm font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 bg-gray-100 leading-tight"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-100 leading-tight"
                 id="email"
                 type="email"
                 value={session?.user?.email || ''}
                 disabled
               />
-              <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+              <p className="text-xs text-gray-600 mt-1">Email cannot be changed</p>
             </div>
             
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label className="block text-gray-800 text-sm font-bold mb-2">
                 Role
               </label>
-              <div className="py-2 px-3 text-gray-700">
+              <div className="py-2 px-3 text-gray-800">
                 {session?.user?.role === 'admin' ? 'Administrator' : 'Regular User'}
               </div>
             </div>
@@ -93,33 +91,32 @@ export default function ProfilePage() {
             </div>
           </form>
         ) : (
-          <>
-            <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-4">Account Information</h2>
+          <>            <div className="mb-4">
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">Account Information</h2>
               
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-800 text-sm font-bold mb-2">
                   Name
                 </label>
-                <div className="py-2 px-3 text-gray-700">
+                <div className="py-2 px-3 text-gray-800">
                   {session?.user?.name}
                 </div>
               </div>
               
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-800 text-sm font-bold mb-2">
                   Email
                 </label>
-                <div className="py-2 px-3 text-gray-700">
+                <div className="py-2 px-3 text-gray-800">
                   {session?.user?.email}
                 </div>
               </div>
               
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-800 text-sm font-bold mb-2">
                   Role
                 </label>
-                <div className="py-2 px-3 text-gray-700">
+                <div className="py-2 px-3 text-gray-800">
                   {session?.user?.role === 'admin' ? 'Administrator' : 'Regular User'}
                 </div>
               </div>

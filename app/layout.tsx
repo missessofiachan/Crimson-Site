@@ -31,9 +31,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <Navbar />
-          <main className="pt-20">{/* Adjust pt-20 as needed to match Navbar height */}
+        <Providers>          <Navbar />
+          <main className="pt-24">{/* Adjusted padding to match enhanced navbar height */}
             {children}
           </main>
           <ToastProvider />

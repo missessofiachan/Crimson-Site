@@ -89,7 +89,6 @@ export default function CartPage() {
       <div
         className={styles.cartItems}
         aria-label="Shopping cart items"
-        role="table"
       >
         {/* Header row */}
         <div className={styles.cartHeader} role="rowgroup">

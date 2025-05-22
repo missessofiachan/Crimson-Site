@@ -86,37 +86,27 @@ export default function CartPage() {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Your Shopping Cart</h1>
 
-      <div
-        className={styles.cartItems}
+      <table
+        className={styles.cartTable}
         aria-label="Shopping cart items"
       >
-        {/* Header row */}
-        <div className={styles.cartHeader} role="rowgroup">
-          <div role="row">
-            <span role="columnheader" className={styles.productColumn}>
-              Product
-            </span>
-            <span role="columnheader" className={styles.priceColumn}>
-              Price
-            </span>
-            <span role="columnheader" className={styles.quantityColumn}>
-              Qty
-            </span>
-            <span role="columnheader" className={styles.totalColumn}>
-              Total
-            </span>
-            <span role="columnheader" className={styles.actionColumn}>
-              Action
-            </span>
-          </div>
-        </div>
+        {/* Table header */}
+        <thead className={styles.cartHeader}>
+          <tr>
+            <th scope="col" className={styles.productColumn}>Product</th>
+            <th scope="col" className={styles.priceColumn}>Price</th>
+            <th scope="col" className={styles.quantityColumn}>Qty</th>
+            <th scope="col" className={styles.totalColumn}>Total</th>
+            <th scope="col" className={styles.actionColumn}>Action</th>
+          </tr>
+        </thead>
 
-        {/* Item rows */}
-        <div role="rowgroup">
+        {/* Table body */}
+        <tbody>
           {items.map((item) => (
-            <div key={item._id} className={styles.cartItem} role="row">
+            <tr key={item._id} className={styles.cartItem}>
               {/* Product cell */}
-              <div className={styles.productColumn} role="cell">
+              <td className={styles.productColumn}>
                 <div className={styles.productInfo}>
                   {item.imageUrl ? (
                     <Image
@@ -125,98 +115,103 @@ export default function CartPage() {
                       width={80}
                       height={80}
                       style={{ objectFit: 'cover' }}
+                      className={styles.productImage}
                     />
                   ) : (
                     <div className={styles.noImage}>No image</div>
                   )}
                   <span className={styles.productName}>{item.name}</span>
                 </div>
-              </div>
+              </td>
 
               {/* Price cell */}
-              <div className={styles.priceColumn} role="cell">
+              <td className={styles.priceColumn}>
                 {currency.format(item.price)}
-              </div>
+              </td>
 
               {/* Quantity cell */}
-              <div className={styles.quantityColumn} role="cell">
+              <td className={styles.quantityColumn}>
                 <div className={styles.quantityControl}>
                   <button
                     type="button"
-                    onClick={() =>
-                      handleQuantityChange(item._id, item.quantity - 1)
-                    }
+                    onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
                     disabled={item.quantity <= 1}
                     aria-label={`Decrease quantity of ${item.name}`}
+                    className={styles.quantityButton}
                   >
                     –
                   </button>
                   <span aria-live="polite">{item.quantity}</span>
                   <button
                     type="button"
-                    onClick={() =>
-                      handleQuantityChange(item._id, item.quantity + 1)
-                    }
+                    onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
                     aria-label={`Increase quantity of ${item.name}`}
+                    className={styles.quantityButton}
                   >
                     +
                   </button>
                 </div>
-              </div>
+              </td>
 
               {/* Total cell */}
-              <div className={styles.totalColumn} role="cell">
+              <td className={styles.totalColumn}>
                 {currency.format(item.price * item.quantity)}
-              </div>
+              </td>
 
               {/* Action cell */}
-              <div className={styles.actionColumn} role="cell">
+              <td className={styles.actionColumn}>
                 <button
                   type="button"
                   onClick={() => handleRemove(item._id, item.name)}
                   className={styles.removeButton}
-                  aria-label={`Remove ${item.name}`}
+                  aria-label={`Remove ${item.name} from cart`}
                 >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                      </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.removeIcon}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
                 </button>
-              </div>
-            </div>
+              </td>
+            </tr>
           ))}
-        </div>
+        </tbody>
 
-        {/* Summary + actions */}
-        <div className={styles.cartSummary}>
-          <div className={styles.summaryRow}>
-            <span>Subtotal:</span>
-            <span>{currency.format(totalPrice)}</span>
-          </div>
-          <div className={styles.summaryRow}>
-            <span>Shipping:</span>
-            <span>FREE</span>
-          </div>
-          <div
-            className={clsx(styles.summaryRow, styles.summaryTotal)}
-          >
-            <span>Total:</span>
-            <span>{currency.format(totalPrice)}</span>
-          </div>
+        {/* Table footer with summary */}
+        <tfoot className={styles.cartSummary}>
+          <tr>
+            <td colSpan={5}>
+              <div className={styles.summaryContent}>
+                <div className={styles.summaryRow}>
+                  <span>Subtotal:</span>
+                  <span>{currency.format(totalPrice)}</span>
+                </div>
+                <div className={styles.summaryRow}>
+                  <span>Shipping:</span>
+                  <span>FREE</span>
+                </div>
+                <div
+                  className={clsx(styles.summaryRow, styles.summaryTotal)}
+                >
+                  <span>Total:</span>
+                  <span>{currency.format(totalPrice)}</span>
+                </div>
 
-          <button
-            type="button"
-            onClick={handleCheckout}
-            disabled={isCheckingOut}
-            className={styles.checkoutButton}
-          >
-            {isCheckingOut ? 'Processing…' : 'Proceed to Checkout'}
-          </button>
+                <button
+                  type="button"
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                  className={styles.checkoutButton}
+                >
+                  {isCheckingOut ? 'Processing…' : 'Proceed to Checkout'}
+                </button>
 
-          <Link href="/store" className={styles.continueShopping}>
-            Continue Shopping
-          </Link>
-        </div>
-      </div>
+                <Link href="/store" className={styles.continueShopping}>
+                  Continue Shopping
+                </Link>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 }

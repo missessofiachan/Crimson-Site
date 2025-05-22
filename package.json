@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "echo 'Installed dependencies successfully!'"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.9.1",
@@ -15,6 +14,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/uuid": "^10.0.0",
     "bcrypt": "^6.0.0",
+    "clsx": "^2.1.1",
     "formidable": "^3.5.4",
     "mongodb": "^6.16.0",
     "multer": "^2.0.0",

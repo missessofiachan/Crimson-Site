@@ -72,23 +72,6 @@
   gap: 1rem;
 }
 
-.productImage {
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-}
-
-.productImage img {
-  max-width: 80px;
-  max-height: 80px;
-  width: auto;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
 
 .noImage {
   width: 80px;

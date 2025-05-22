@@ -1,134 +1,157 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
-import styles from '../Dashboard.module.css';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 export default function ProfilePage() {
   const { data: session } = useSession();
+  const router = useRouter();
+
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(session?.user?.name || '');
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  
-  // For demonstration - profile update not implemented
-  const handleUpdateProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-    
-    setSuccess('Profile updated successfully! (This is a demo message, actual update not implemented)');
-    setIsEditing(false);
-  };
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
+  const [error, setError] = useState('');
+
+  // Sync name with session when it loads
+  useEffect(() => {
+    if (session?.user?.name) {
+      setName(session.user.name);
+    }
+  }, [session?.user?.name]);
+
+  const toggleEdit = useCallback(() => {
+    setError('');
+    setStatus('idle');
+    setIsEditing((e) => !e);
+  }, []);
+
+  const handleSave = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      // Simple client-side validation
+      if (!name.trim()) {
+        setError('Name cannot be empty');
+        setStatus('error');
+        return;
+      }
+
+      setStatus('saving');
+      try {
+        const res = await fetch('/api/profile', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
+        });
+        if (!res.ok) throw new Error('Update failed');
+        toast.success('Profile updated!');
+        setStatus('success');
+        setIsEditing(false);
+        router.refresh();
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong');
+        setStatus('error');
+      }
+    },
+    [name, router]
+  );
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Your Profile</h1>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-semibold mb-6">Your Profile</h1>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      {status === 'error' && (
+        <div
+          role="alert"
+          className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+        >
           {error}
         </div>
       )}
-
-      {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-          {success}
+      {status === 'success' && (
+        <div
+          role="status"
+          className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"
+        >
+          Profile updated successfully!
         </div>
       )}
-        <div className="bg-white p-6 rounded-lg shadow text-gray-800">
+
+      <div className="bg-white shadow rounded-lg p-6">
         {isEditing ? (
-          <form onSubmit={handleUpdateProfile}>
+          <form onSubmit={handleSave} noValidate>
             <div className="mb-4">
-              <label className="block text-gray-800 text-sm font-bold mb-2" htmlFor="name">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Name
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                aria-invalid={error ? 'true' : 'false'}
+                className="block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
               />
             </div>
-              <div className="mb-4">
-              <label className="block text-gray-800 text-sm font-bold mb-2" htmlFor="email">
-                Email
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-100 leading-tight"
-                id="email"
-                type="email"
-                value={session?.user?.email || ''}
-                disabled
-              />
-              <p className="text-xs text-gray-600 mt-1">Email cannot be changed</p>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <p className="text-gray-500">{session?.user?.email}</p>
             </div>
-            
-            <div className="mb-4">
-              <label className="block text-gray-800 text-sm font-bold mb-2">
-                Role
-              </label>
-              <div className="py-2 px-3 text-gray-800">
-                {session?.user?.role === 'admin' ? 'Administrator' : 'Regular User'}
-              </div>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+              <p className="text-gray-800">
+                {session?.user?.role === 'admin' ? 'Administrator' : 'User'}
+              </p>
             </div>
-            
-            <div className="flex items-center justify-between">
+
+            <div className="flex items-center space-x-4">
               <button
-                className="bg-crimson-dark hover:bg-crimson text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
+                disabled={status === 'saving'}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+                aria-busy={status === 'saving'}
               >
-                Save Changes
+                {status === 'saving' ? 'Saving...' : 'Save Changes'}
               </button>
               <button
-                className="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-700"
                 type="button"
-                onClick={() => setIsEditing(false)}
+                onClick={toggleEdit}
+                className="text-gray-500 hover:underline"
               >
                 Cancel
               </button>
             </div>
           </form>
         ) : (
-          <>            <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-4 text-gray-800">Account Information</h2>
-              
-              <div className="mb-4">
-                <label className="block text-gray-800 text-sm font-bold mb-2">
-                  Name
-                </label>
-                <div className="py-2 px-3 text-gray-800">
-                  {session?.user?.name}
-                </div>
+          <div>
+            <dl className="space-y-4 mb-6">
+              <div>
+                <dt className="text-sm font-medium text-gray-700">Name</dt>
+                <dd className="mt-1 text-gray-900">{session?.user?.name}</dd>
               </div>
-              
-              <div className="mb-4">
-                <label className="block text-gray-800 text-sm font-bold mb-2">
-                  Email
-                </label>
-                <div className="py-2 px-3 text-gray-800">
-                  {session?.user?.email}
-                </div>
+              <div>
+                <dt className="text-sm font-medium text-gray-700">Email</dt>
+                <dd className="mt-1 text-gray-900">{session?.user?.email}</dd>
               </div>
-              
-              <div className="mb-4">
-                <label className="block text-gray-800 text-sm font-bold mb-2">
-                  Role
-                </label>
-                <div className="py-2 px-3 text-gray-800">
-                  {session?.user?.role === 'admin' ? 'Administrator' : 'Regular User'}
-                </div>
+              <div>
+                <dt className="text-sm font-medium text-gray-700">Role</dt>
+                <dd className="mt-1 text-gray-900">
+                  {session?.user?.role === 'admin' ? 'Administrator' : 'User'}
+                </dd>
               </div>
-              
-              <button
-                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                onClick={() => setIsEditing(true)}
-              >
-                Edit Profile
-              </button>
-            </div>
-          </>
+            </dl>
+            <button
+              type="button"
+              onClick={toggleEdit}
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+            >
+              Edit Profile
+            </button>
+          </div>
         )}
       </div>
     </div>

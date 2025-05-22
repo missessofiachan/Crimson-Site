@@ -21,7 +21,7 @@ export default function Navbar() {
           <li><Link href="/chat" className="hover:text-crimson-light">Chat</Link></li>
           <li><Link href="/contact" className="hover:text-crimson-light">Contact</Link></li>
           <li><Link href="/cat-fact" className="hover:text-crimson-light">Cat Fact</Link></li>
-          <li><Link href="/video-autoplay" className="hover:text-crimson-light">dugodoo</Link></li>
+          <li><Link href="/DUGGA-DOO" className="hover:text-crimson-light">DUGGA DOO</Link></li>
           
           {/* Cart Link with counter */}
           <li>

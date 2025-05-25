@@ -5,7 +5,7 @@ export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-SCFSK4S8DV';
 export const pageview = (url: URL) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_TRACKING_ID, {
-      page_path: url,
+      page_path: url.pathname + url.search,
     });
   }
 };

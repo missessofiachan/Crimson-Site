@@ -166,15 +166,22 @@ export default function ContactForm() {
       </div>
 
       {/* status message */}
-      {(success || Object.values(errors).some(Boolean)) && (
+      {success && (
         <div
-          className={success ? styles.success : styles.error}
-          role={success ? 'status' : 'alert'}
+          className={styles.success}
+          role="status"
           aria-live="polite"
         >
-          {success
-            ? "Thanks! We'll be in touch shortly."
-            : 'Please fix the errors below.'}
+          Thanks! We'll be in touch shortly.
+        </div>
+      )}
+      {Object.values(errors).some(Boolean) && !success && (
+        <div
+          className={styles.error}
+          role="alert"
+          aria-live="polite"
+        >
+          Please fix the errors below.
         </div>
       )}
 

@@ -1,12 +1,14 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { pageview } from '@/lib/gtag';
 
-export default function GoogleAnalytics() {
+function GoogleAnalyticsInner() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();  useEffect(() => {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
     // Only track page views if gtag is available (in production)
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       const url = new URL(window.location.href);
@@ -14,7 +16,13 @@ export default function GoogleAnalytics() {
     }
   }, [pathname, searchParams]);
 
-  // This component only handles client-side page view tracking
-  // The actual GA scripts are loaded in GoogleAnalyticsScripts component
   return null;
+}
+
+export default function GoogleAnalytics() {
+  return (
+    <Suspense fallback={null}>
+      <GoogleAnalyticsInner />
+    </Suspense>
+  );
 }

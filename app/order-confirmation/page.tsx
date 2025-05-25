@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import styles from './OrderConfirmation.module.css';
@@ -12,7 +12,7 @@ interface OrderItem {
   quantity: number;
 }
 
-export default function OrderConfirmationPage() {
+function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const [orderDetails, setOrderDetails] = useState<{
     transactionId: string;
@@ -107,9 +107,7 @@ export default function OrderConfirmationPage() {
             <li>Your order will be processed within 1-2 business days</li>
             <li>You'll receive shipping information once your order ships</li>
           </ul>
-        </div>
-
-        <div className={styles.actions}>
+        </div>        <div className={styles.actions}>
           <Link href="/store" className={styles.continueButton}>
             Continue Shopping
           </Link>
@@ -119,5 +117,19 @@ export default function OrderConfirmationPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OrderConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <h1 className={styles.title}>Loading Order Details...</h1>
+        </div>
+      </div>
+    }>
+      <OrderConfirmationContent />
+    </Suspense>
   );
 }

@@ -23,8 +23,12 @@ export const metadata: Metadata = {
   description: "Discover premium products at Crimson E-Commerce. Shop our curated collection with fast delivery and excellent customer service.",
   keywords: "e-commerce, shopping, premium products, online store, crimson",
   authors: [{ name: "Crimson E-Commerce Team" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styles from './Store.module.css';
 import { useCart } from '@/lib/cart';
 import { toast } from 'react-hot-toast';
+import { trackSearch, trackViewItem } from '@/lib/gtag';
 
 interface StoreItem {
   _id: string;
@@ -27,7 +28,6 @@ export default function StorePage() {
   const [searchTerm, setSearchTerm] = useState('');
   
   const { addToCart } = useCart();
-
   // Function to handle adding item to cart
   const handleAddToCart = (item: StoreItem) => {
     addToCart({
@@ -39,6 +39,11 @@ export default function StorePage() {
     
     // Show toast notification
     toast.success(`${item.name} added to cart!`);
+  };
+
+  // Function to handle product view tracking
+  const handleProductView = (item: StoreItem) => {
+    trackViewItem(item);
   };
 
   // Fetch store items
@@ -96,10 +101,13 @@ export default function StorePage() {
     setSearchTerm(e.target.value);
     setCurrentPage(0); // Reset to first page when searching
   };
-
   // Function to handle search submission
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Track search event
+    if (searchTerm.trim()) {
+      trackSearch(searchTerm.trim());
+    }
     // The effect will trigger with the current searchTerm
   };
 
@@ -169,10 +177,12 @@ export default function StorePage() {
           </p>
         </div>
       ) : (
-        <>
-          <div className={styles.grid}>
-            {items.map(item => (
-              <div key={item._id} className={styles.card}>
+        <>          <div className={styles.grid}>
+            {items.map(item => (              <div 
+                key={item._id} 
+                className={styles.card}
+                onClick={() => handleProductView(item)}
+              >
                 <div className={styles.imageContainer}>                  {item.imageUrl ? (
                     <Image
                       src={item.imageUrl}

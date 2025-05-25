@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useCart } from '@/lib/cart';
 import { toast } from 'react-hot-toast';
+import { trackBeginCheckout, trackPurchase } from '@/lib/gtag';
 import styles from './Cart.module.css';
 
 export default function CartPage() {
@@ -52,9 +53,20 @@ export default function CartPage() {
 
   const handleCheckout = useCallback(async () => {
     setIsCheckingOut(true);
+    
+    // Track begin checkout event
+    trackBeginCheckout(items, totalPrice);
+    
     try {
       // simulate API call
       await new Promise((r) => setTimeout(r, 2000));
+      
+      // Generate a transaction ID
+      const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Track purchase event
+      trackPurchase(transactionId, items, totalPrice);
+      
       clearCart();
       toast.success('Order placed successfully!');
       router.push('/order-confirmation'); // create this page as desired
@@ -63,7 +75,7 @@ export default function CartPage() {
     } finally {
       setIsCheckingOut(false);
     }
-  }, [clearCart, router]);
+  }, [clearCart, router, items, totalPrice]);
 
   // Empty-cart state
   if (totalItems === 0) {

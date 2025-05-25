@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from '../login/Login.module.css';
+import { trackSignUp } from '@/lib/gtag';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -44,11 +45,12 @@ export default function RegisterPage() {
         }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
+      const data = await response.json();      if (!response.ok) {
         throw new Error(data.error || 'Registration failed');
       }
+
+      // Track successful registration
+      trackSignUp('email');
 
       // Redirect to login on success
       router.push('/login?registered=true');

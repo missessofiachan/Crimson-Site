@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { trackAddToCart, trackRemoveFromCart } from '@/lib/gtag';
 
 export interface CartItem {
   _id: string;
@@ -72,10 +73,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+    
+    // Track add to cart event
+    trackAddToCart(product);
   };
 
   const removeFromCart = (itemId: string) => {
+    // Find the item being removed for tracking
+    const itemToRemove = items.find(item => item._id === itemId);
+    
     setItems(prevItems => prevItems.filter(item => item._id !== itemId));
+    
+    // Track remove from cart event
+    if (itemToRemove) {
+      trackRemoveFromCart(itemToRemove);
+    }
     
     // If cart is now empty, remove from localStorage
     if (items.length === 1) {

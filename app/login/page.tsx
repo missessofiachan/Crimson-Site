@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './Login.module.css';
+import { trackLogin } from '@/lib/gtag';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,11 +24,12 @@ export default function LoginPage() {
         email,
         password,
         redirect: false,
-      });
-
-      if (result?.error) {
+      });      if (result?.error) {
         setError(result.error);
       } else {
+        // Track successful login
+        trackLogin('credentials');
+        
         router.push('/dashboard');
         router.refresh();
       }

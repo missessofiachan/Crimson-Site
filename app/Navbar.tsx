@@ -63,11 +63,12 @@ export default function Navbar() {
             )}
           </svg>
         </button>
-        
-        {/* Desktop Navigation */}
+          {/* Desktop Navigation */}
         <ul className="hidden lg:flex gap-6 text-base font-medium items-center">
           <li><Link href="/" className={navLinkClass("/")}>Home</Link></li>
           <li><Link href="/store" className={navLinkClass("/store")}>Store</Link></li>
+          <li><Link href="/about" className={navLinkClass("/about")}>About</Link></li>
+          <li><Link href="/faq" className={navLinkClass("/faq")}>FAQ</Link></li>
           <li><Link href="/chat" className={navLinkClass("/chat")}>Chat</Link></li>
           <li><Link href="/contact" className={navLinkClass("/contact")}>Contact</Link></li>
           <li><Link href="/cat-fact" className={navLinkClass("/cat-fact")}>Cat Fact</Link></li>
@@ -131,13 +132,14 @@ export default function Navbar() {
             </li>
           )}
         </ul>
-        
-        {/* Mobile Navigation Menu */}
+          {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-crimson-dark border-t border-crimson-light shadow-lg animate-fadeIn">
             <ul className="flex flex-col text-base font-medium py-4 px-6 space-y-4">
               <li><Link href="/" className={navLinkClass("/")}>Home</Link></li>
               <li><Link href="/store" className={navLinkClass("/store")}>Store</Link></li>
+              <li><Link href="/about" className={navLinkClass("/about")}>About</Link></li>
+              <li><Link href="/faq" className={navLinkClass("/faq")}>FAQ</Link></li>
               <li><Link href="/chat" className={navLinkClass("/chat")}>Chat</Link></li>
               <li><Link href="/contact" className={navLinkClass("/contact")}>Contact</Link></li>
               <li><Link href="/cat-fact" className={navLinkClass("/cat-fact")}>Cat Fact</Link></li>

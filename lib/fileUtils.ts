@@ -1,25 +1,21 @@
-import { unlink, readdir } from "fs/promises";
-import { join } from "path";
+import { deleteFromCloudinary } from './cloudinary';
 
 /**
- * Delete an image file from the uploads directory
- * @param imageUrl - The image URL path (e.g., "/uploads/filename.jpg")
+ * Delete an image file from Cloudinary
+ * @param imageUrl - The Cloudinary image URL
  * @returns Promise<boolean> - Returns true if deleted successfully, false otherwise
  */
 export async function deleteImageFile(imageUrl: string): Promise<boolean> {
-  if (!imageUrl || !imageUrl.startsWith('/uploads/')) {
+  if (!imageUrl || !imageUrl.includes('cloudinary.com')) {
     return false;
   }
 
   try {
-    // Extract filename from imageUrl (e.g., "/uploads/filename.jpg" -> "filename.jpg")
-    const filename = imageUrl.replace('/uploads/', '');
-    const imagePath = join(process.cwd(), 'public', 'uploads', filename);
-    
-    // Delete the image file
-    await unlink(imagePath);
-    console.log(`Successfully deleted image: ${imageUrl}`);
-    return true;
+    const result = await deleteFromCloudinary(imageUrl);
+    if (result) {
+      console.log(`Successfully deleted image: ${imageUrl}`);
+    }
+    return result;
   } catch (error) {
     console.error(`Failed to delete image ${imageUrl}:`, error);
     return false;
@@ -27,8 +23,8 @@ export async function deleteImageFile(imageUrl: string): Promise<boolean> {
 }
 
 /**
- * Delete multiple image files from the uploads directory
- * @param imageUrls - Array of image URL paths
+ * Delete multiple image files from Cloudinary
+ * @param imageUrls - Array of Cloudinary image URLs
  * @returns Promise<{ success: number, failed: number }> - Returns count of successful and failed deletions
  */
 export async function deleteImageFiles(imageUrls: string[]): Promise<{ success: number, failed: number }> {
@@ -48,7 +44,8 @@ export async function deleteImageFiles(imageUrls: string[]): Promise<{ success: 
 }
 
 /**
- * Find and delete orphaned image files (images that exist in uploads but are not referenced by any product)
+ * Find and delete orphaned image files from Cloudinary
+ * Note: This function is simplified for Cloudinary as we can't easily list all images
  * @param db - MongoDB database instance
  * @returns Promise<{ deleted: string[], errors: string[] }> - Returns arrays of deleted files and errors
  */
@@ -57,45 +54,15 @@ export async function cleanupOrphanedImages(db: any): Promise<{ deleted: string[
   const errors: string[] = [];
 
   try {
-    // Get all image files from uploads directory
-    const uploadsPath = join(process.cwd(), 'public', 'uploads');
-    let uploadedFiles: string[] = [];
+    console.log('Note: Orphaned image cleanup for Cloudinary requires manual review');
+    console.log('Consider implementing a scheduled job to track and clean unused images');
     
-    try {
-      uploadedFiles = await readdir(uploadsPath);
-    } catch (error) {
-      console.log('No uploads directory found or empty');
-      return { deleted, errors };
-    }
-
-    // Get all imageUrls from the database
-    const products = await db.collection("storeItems").find({}, { projection: { imageUrl: 1 } }).toArray();
-    const referencedImages = new Set(
-      products
-        .filter((product: any) => product.imageUrl)
-        .map((product: any) => product.imageUrl.replace('/uploads/', ''))
-    );
-
-    // Find orphaned files
-    const orphanedFiles = uploadedFiles.filter(file => 
-      !referencedImages.has(file) && 
-      // Only consider image files
-      /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file)
-    );
-
-    // Delete orphaned files
-    for (const filename of orphanedFiles) {
-      const imageUrl = `/uploads/${filename}`;
-      const success = await deleteImageFile(imageUrl);
-      
-      if (success) {
-        deleted.push(imageUrl);
-      } else {
-        errors.push(`Failed to delete ${imageUrl}`);
-      }
-    }
-
-    console.log(`Cleanup completed: ${deleted.length} files deleted, ${errors.length} errors`);
+    // For now, this function is a placeholder
+    // In a production environment, you would want to:
+    // 1. Keep track of uploaded images in a separate collection
+    // 2. Periodically compare with referenced images
+    // 3. Delete unreferenced images after a grace period
+    
     return { deleted, errors };
 
   } catch (error) {

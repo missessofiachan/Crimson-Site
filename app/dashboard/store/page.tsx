@@ -28,10 +28,10 @@ export default function StoreManagementPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [totalPages, setTotalPages] = useState(0);  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
+  const [cleanupLoading, setCleanupLoading] = useState(false);
 
   // Fetch store items
   useEffect(() => {
@@ -86,12 +86,33 @@ export default function StoreManagementPage() {
 
         if (!response.ok) {
           throw new Error('Failed to delete item');
-        }
-
-        // Remove deleted item from state
+        }        // Remove deleted item from state
         setItems(items.filter(item => item._id !== id));
       } catch (err: any) {
         setError(err.message);
+      }
+    }
+  };
+
+  const handleCleanupImages = async () => {
+    if (window.confirm('This will delete all orphaned image files that are no longer referenced by any product. Are you sure?')) {
+      try {
+        setCleanupLoading(true);
+        const response = await fetch('/api/store/cleanup', {
+          method: 'POST',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to cleanup images');
+        }
+
+        const data = await response.json();
+        alert(`Cleanup completed!\nDeleted: ${data.summary.deletedCount} files\nErrors: ${data.summary.errorCount}`);
+      } catch (err: any) {
+        setError(err.message);
+        alert('Failed to cleanup images: ' + err.message);
+      } finally {
+        setCleanupLoading(false);
       }
     }
   };
@@ -104,12 +125,21 @@ export default function StoreManagementPage() {
     <div>
       <h1 className={styles.pageTitle}>Store Items Management</h1>      <div className="mb-4 flex justify-between items-center">
         <p className="text-gray-800">Manage your store items below</p>
-        <Link 
-          href="/dashboard/store/add" 
-          className="bg-crimson-dark text-white px-4 py-2 rounded-md hover:bg-crimson"
-        >
-          + Add New Item
-        </Link>
+        <div className="flex gap-2">
+          <button
+            onClick={handleCleanupImages}
+            disabled={cleanupLoading}
+            className="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 disabled:opacity-50"
+          >
+            {cleanupLoading ? 'Cleaning...' : 'Cleanup Images'}
+          </button>
+          <Link 
+            href="/dashboard/store/add" 
+            className="bg-crimson-dark text-white px-4 py-2 rounded-md hover:bg-crimson"
+          >
+            + Add New Item
+          </Link>
+        </div>
       </div>
 
       {error && (

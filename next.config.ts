@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['res.cloudinary.com'],  // Add any image domains you're using
+    domains: ['res.cloudinary.com', 'localhost'], // Allow localhost for development
     unoptimized: process.env.NODE_ENV === 'development',
   },
   // Explicitly set the output mode for Vercel deployment

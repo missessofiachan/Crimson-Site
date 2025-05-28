@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './Store.module.css';
 import { useCart } from '@/lib/cart';
 import { toast } from 'react-hot-toast';

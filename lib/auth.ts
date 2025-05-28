@@ -35,7 +35,7 @@ export function useProtectedRoute(
   const { requiredRole = null, redirectTo = '/login' } = options;
 
   useEffect(() => {
-    // Wait until we're done loading
+    // Wait until done loading
     if (loading) return;
 
     // If no session exists, redirect to login

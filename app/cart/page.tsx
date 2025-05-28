@@ -16,7 +16,7 @@ export default function CartPage() {
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  // Currency formatter (memoized)
+  // Currency formatter
   const currency = useMemo(
     () =>
       new Intl.NumberFormat('en-AU', {

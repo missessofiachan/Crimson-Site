@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { getServerSession } from 'next-auth/next';
-import { ObjectId } from 'mongodb';
 import { authOptions } from '@/lib/authOptions';
 
 // Helper function to check for admin session

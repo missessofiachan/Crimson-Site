@@ -5,6 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useCart } from '@/lib/cart';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -30,32 +31,21 @@ export default function Navbar() {
   }, [pathname]);
 
   const navLinkClass = (path: string) => {
-    const baseClass = 'transition-colors duration-200 hover:text-crimson-light relative py-2 px-1';
-    const activeClass =
-      pathname === path
-        ? "after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-crimson-accent after:scale-x-100 after:origin-left after:transition-transform"
-        : "after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-crimson-accent after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100";
-    return `${baseClass} ${activeClass}`;
+    const isActive = pathname === path;
+    return `${styles.navLink} ${isActive ? styles.navLinkActive : styles.navLinkInactive}`;
   };
 
   return (
-    <nav
-      className={`w-full flex justify-center bg-crimson-dark text-crimson-accent py-4 shadow-lg fixed top-0 left-0 right-0 z-20 transition-all duration-300 ${
-        scrolled ? 'py-2 shadow-xl' : 'py-4'
-      }`}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link
-          href="/"
-          className="text-xl font-bold hover:text-crimson-light transition-colors duration-200 flex items-center gap-2"
-        >
+    <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}>
+      <div className={styles.container}>
+        <Link href="/" className={styles.logo}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={styles.logoIcon}
           >
             <path
               strokeLinecap="round"
@@ -69,7 +59,7 @@ export default function Navbar() {
         {/* Mobile menu button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden text-crimson-accent focus:outline-none"
+          className={styles.mobileMenuButton}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
         >
           <svg
@@ -78,7 +68,7 @@ export default function Navbar() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={styles.menuIcon}
           >
             {isMenuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -92,7 +82,7 @@ export default function Navbar() {
           </svg>
         </button>
         {/* Desktop Navigation */}
-        <ul className="hidden lg:flex gap-6 text-base font-medium items-center">
+        <ul className={styles.desktopNav}>
           <li>
             <Link href="/" className={navLinkClass('/')}>
               Home
@@ -131,14 +121,14 @@ export default function Navbar() {
 
           {/* Cart Link with counter */}
           <li>
-            <Link href="/cart" className={`${navLinkClass('/cart')} relative flex items-center`}>
+            <Link href="/cart" className={`${navLinkClass('/cart')} ${styles.cartLink}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className={styles.cartIcon}
               >
                 <path
                   strokeLinecap="round"
@@ -146,21 +136,14 @@ export default function Navbar() {
                   d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                 />
               </svg>
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-crimson text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
-                  {totalItems}{' '}
-                </span>
-              )}
+              {totalItems > 0 && <span className={styles.cartBadge}>{totalItems} </span>}
             </Link>
           </li>
 
           {session ? (
-            <li className="group relative">
-              <button
-                className="flex items-center gap-2 py-2 px-3 rounded-full bg-crimson focus:outline-none hover:bg-crimson-light transition-colors duration-200 text-white"
-                aria-label="User menu"
-              >
-                <span className="font-medium text-sm truncate max-w-[100px]">
+            <li className={styles.userMenuGroup}>
+              <button className={styles.userMenuButton} aria-label="User menu">
+                <span className={styles.userName}>
                   {session.user?.name || session.user?.email?.split('@')[0] || 'User'}
                 </span>
                 <svg
@@ -169,7 +152,7 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="w-4 h-4"
+                  className={styles.userMenuIcon}
                 >
                   <path
                     strokeLinecap="round"
@@ -180,23 +163,14 @@ export default function Navbar() {
               </button>
 
               {/* Dropdown menu */}
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 origin-top-right">
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
+              <div className={styles.userDropdown}>
+                <Link href="/dashboard" className={styles.dropdownLink}>
                   Dashboard
                 </Link>
-                <Link
-                  href="/dashboard/profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
+                <Link href="/dashboard/profile" className={styles.dropdownLink}>
                   Profile
                 </Link>
-                <button
-                  onClick={() => signOut()}
-                  className="block w-full text-left px-4 py-2 text-sm text-crimson-dark hover:bg-gray-100"
-                >
+                <button onClick={() => signOut()} className={styles.dropdownSignOut}>
                   Sign out
                 </button>
               </div>
@@ -205,12 +179,9 @@ export default function Navbar() {
             <li>
               <Link
                 href="/login"
-                className={`py-2 px-4 rounded-md ${
-                  pathname === '/login'
-                    ? 'bg-crimson-accent text-crimson-dark'
-                    : 'bg-transparent border-2 border-crimson-accent hover:bg-crimson-accent hover:text-crimson-dark'
-                } 
-                  transition-colors duration-200 flex items-center gap-1`}
+                className={`${styles.loginButton} ${
+                  pathname === '/login' ? styles.loginButtonActive : styles.loginButtonInactive
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +189,7 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5"
+                  className={styles.loginIcon}
                 >
                   <path
                     strokeLinecap="round"
@@ -233,8 +204,8 @@ export default function Navbar() {
         </ul>
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-crimson-dark border-t border-crimson-light shadow-lg animate-fadeIn">
-            <ul className="flex flex-col text-base font-medium py-4 px-6 space-y-4">
+          <div className={styles.mobileMenu}>
+            <ul className={styles.mobileNavList}>
               <li>
                 <Link href="/" className={navLinkClass('/')}>
                   Home
@@ -272,13 +243,9 @@ export default function Navbar() {
               </li>
 
               <li>
-                <Link href="/cart" className={`${navLinkClass('/cart')} flex items-center gap-2`}>
+                <Link href="/cart" className={`${navLinkClass('/cart')} ${styles.mobileCartLink}`}>
                   Cart
-                  {totalItems > 0 && (
-                    <span className="bg-crimson text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {totalItems}
-                    </span>
-                  )}
+                  {totalItems > 0 && <span className={styles.mobileCartBadge}>{totalItems}</span>}
                 </Link>
               </li>
 
@@ -295,17 +262,14 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <button
-                      onClick={() => signOut()}
-                      className="w-full text-left flex items-center gap-2 text-crimson-accent hover:text-crimson-light transition-colors duration-200"
-                    >
+                    <button onClick={() => signOut()} className={styles.mobileSignOut}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-5 h-5"
+                        className={styles.mobileSignOutIcon}
                       >
                         <path
                           strokeLinecap="round"
@@ -321,7 +285,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/login"
-                    className={`${navLinkClass('/login')} flex items-center gap-2`}
+                    className={`${navLinkClass('/login')} ${styles.mobileLoginLink}`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -329,7 +293,7 @@ export default function Navbar() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-5 h-5"
+                      className={styles.mobileLoginIcon}
                     >
                       <path
                         strokeLinecap="round"

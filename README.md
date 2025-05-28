@@ -55,15 +55,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [
 ## Project Structure
 
 - `app/` - Main application directory (pages, components, API routes)
-    - `contact/` - Contact form page and styles
-    - `chat/` - Chatbot page and styles
-    - `cat-fact/` - Cat Fact generator
-    - `Todo/` - Todo list (with MongoDB integration)
-    - `gallery/` - Gallery page
-    - `store/` - Public store page to display items
-    - `dashboard/` - Admin dashboard with store management
-    - `login/` and `register/` - User authentication pages
-    - `api/` - API routes (chat, mongo, auth, store items)
+  - `contact/` - Contact form page and styles
+  - `chat/` - Chatbot page and styles
+  - `cat-fact/` - Cat Fact generator
+  - `Todo/` - Todo list (with MongoDB integration)
+  - `gallery/` - Gallery page
+  - `store/` - Public store page to display items
+  - `dashboard/` - Admin dashboard with store management
+  - `login/` and `register/` - User authentication pages
+  - `api/` - API routes (chat, mongo, auth, store items)
 - `public/` - Static assets including uploaded images
 - `components/` - Shared React components
 - `lib/` - Utility libraries (auth, db, etc.)

@@ -4,7 +4,7 @@ import styles from './CatFact.module.css';
 
 export default function CatFactPage() {
   const [fact, setFact] = useState('');
-  const [catImg, setCatImg] = useState('');
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

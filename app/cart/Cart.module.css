@@ -216,7 +216,7 @@
 }
 
 .checkoutButton:hover:not(:disabled) {
-    background-color: var(--crimson-darker);
+    background-color: var(--crimson-darker, #a10e2a); /* fallback to a dark crimson */
 }
 
 .checkoutButton:disabled {

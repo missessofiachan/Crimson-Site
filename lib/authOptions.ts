@@ -2,7 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
 import clientPromise from '@/lib/mongodb';
 
-// Export authOptions for reuse across the application
+// Exports  authOptions for reuse across the application
 export const authOptions = {
   providers: [
     CredentialsProvider({

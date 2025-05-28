@@ -17,6 +17,7 @@ export default function CatFactPage() {
 
       setLoading(false);
     }
+
     fetchData();
   }, []);
 

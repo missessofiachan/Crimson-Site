@@ -1,114 +1,114 @@
 .container {
-  display: flex;
-  min-height: calc(100vh - 60px); /* Adjust based on your navbar height */
+    display: flex;
+    min-height: calc(100vh - 60px); /* Adjust based on your navbar height */
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #f0f0f0;
-  padding: 2rem 1rem;
-  border-right: 1px solid #ddd;
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 2rem 1rem;
+    border-right: 1px solid #ddd;
 }
 
 .content {
-  flex: 1;
-  padding: 2rem;
+    flex: 1;
+    padding: 2rem;
 }
 
 .sidebarTitle {
-  color: var(--crimson-dark);
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+    color: var(--crimson-dark);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .navList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .navItem {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .navLink {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #333;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 }
 
 .navLink:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 .activeNavLink {
-  background-color: var(--crimson-dark);
-  color: white;
+    background-color: var(--crimson-dark);
+    color: white;
 }
 
 .activeNavLink:hover {
-  background-color: var(--crimson);
+    background-color: var(--crimson);
 }
 
 .pageTitle {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 .userInfo {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .userName {
-  font-weight: bold;
-  color: var(--crimson-dark);
+    font-weight: bold;
+    color: var(--crimson-dark);
 }
 
 .userRole {
-  color: #666;
-  font-size: 0.9rem;
-  margin-top: 0.25rem;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
 }
 
 .logoutButton {
-  background-color: transparent;
-  color: #666;
-  border: none;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: block;
-  margin-top: 0.5rem;
-  text-decoration: underline;
+    background-color: transparent;
+    color: #666;
+    border: none;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.5rem;
+    text-decoration: underline;
 }
 
 .logoutButton:hover {
-  color: var(--crimson-dark);
+    color: var(--crimson-dark);
 }
 
 .button {
-  background-color: var(--crimson-dark);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    background-color: var(--crimson-dark);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .button:hover {
-  background-color: var(--crimson);
+    background-color: var(--crimson);
 }
 
 .uploadProgressBar {
-  transition: width 0.3s ease;
-  /* The width will be set inline */
+    transition: width 0.3s ease;
+    /* The width will be set inline */
 }

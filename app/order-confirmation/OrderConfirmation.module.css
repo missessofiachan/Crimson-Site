@@ -1,227 +1,227 @@
 .container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
-  background-color: #f9fafb;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background-color: #f9fafb;
 }
 
 .content {
-  max-width: 600px;
-  width: 100%;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 3rem 2rem;
-  text-align: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+    text-align: center;
 }
 
 .successIcon {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
 }
 
 .successIcon svg {
-  width: 4rem;
-  height: 4rem;
-  color: #10b981;
+    width: 4rem;
+    height: 4rem;
+    color: #10b981;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #111827;
-  margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 1rem;
 }
 
 .message {
-  margin-bottom: 2rem;
-  color: #6b7280;
-  line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #6b7280;
+    line-height: 1.6;
 }
 
 .transactionId {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #f3f4f6;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 0.875rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.875rem;
 }
 
 .orderSummary {
-  text-align: left;
-  margin-bottom: 2rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
 }
 
 .summaryTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 1rem;
-  text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .itemsList {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .orderItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f3f4f6;
 }
 
 .orderItem:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .itemDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .itemName {
-  font-weight: 500;
-  color: #111827;
+    font-weight: 500;
+    color: #111827;
 }
 
 .itemQuantity {
-  font-size: 0.875rem;
-  color: #6b7280;
+    font-size: 0.875rem;
+    color: #6b7280;
 }
 
 .itemPrice {
-  font-weight: 600;
-  color: var(--crimson-dark);
+    font-weight: 600;
+    color: var(--crimson-dark);
 }
 
 .totalSection {
-  border-top: 2px solid #e5e7eb;
-  padding-top: 1rem;
+    border-top: 2px solid #e5e7eb;
+    padding-top: 1rem;
 }
 
 .totalRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .totalLabel {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
 }
 
 .totalAmount {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--crimson-dark);
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--crimson-dark);
 }
 
 .nextSteps {
-  text-align: left;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: #fef3f2;
-  border-radius: 8px;
-  border-left: 4px solid var(--crimson-light);
+    text-align: left;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #fef3f2;
+    border-radius: 8px;
+    border-left: 4px solid var(--crimson-light);
 }
 
 .nextStepsTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.75rem;
 }
 
 .stepsList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .stepsList li {
-  padding: 0.5rem 0;
-  color: #6b7280;
-  position: relative;
-  padding-left: 1.5rem;
+    padding: 0.5rem 0;
+    color: #6b7280;
+    position: relative;
+    padding-left: 1.5rem;
 }
 
 .stepsList li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--crimson-dark);
-  font-weight: bold;
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--crimson-dark);
+    font-weight: bold;
 }
 
 .actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .continueButton {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--crimson-dark);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--crimson-dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
 
 .continueButton:hover {
-  background-color: var(--crimson);
+    background-color: var(--crimson);
 }
 
 .profileButton {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--crimson-dark);
-  text-decoration: none;
-  border: 2px solid var(--crimson-dark);
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: var(--crimson-dark);
+    text-decoration: none;
+    border: 2px solid var(--crimson-dark);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .profileButton:hover {
-  background-color: var(--crimson-dark);
-  color: white;
+    background-color: var(--crimson-dark);
+    color: white;
 }
 
 /* Responsive Design */
 @media (max-width: 640px) {
-  .content {
-    padding: 2rem 1rem;
-  }
+    .content {
+        padding: 2rem 1rem;
+    }
 
-  .title {
-    font-size: 1.5rem;
-  }
+    .title {
+        font-size: 1.5rem;
+    }
 
-  .actions {
-    flex-direction: column;
-  }
+    .actions {
+        flex-direction: column;
+    }
 
-  .continueButton,
-  .profileButton {
-    width: 100%;
-    justify-content: center;
-  }
+    .continueButton,
+    .profileButton {
+        width: 100%;
+        justify-content: center;
+    }
 }

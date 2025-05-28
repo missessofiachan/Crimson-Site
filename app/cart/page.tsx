@@ -12,14 +12,7 @@ import styles from './Cart.module.css';
 
 export default function CartPage() {
   const router = useRouter();
-  const {
-    items,
-    updateQuantity,
-    removeFromCart,
-    totalItems,
-    totalPrice,
-    clearCart,
-  } = useCart();
+  const { items, updateQuantity, removeFromCart, totalItems, totalPrice, clearCart } = useCart();
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
@@ -53,20 +46,20 @@ export default function CartPage() {
 
   const handleCheckout = useCallback(async () => {
     setIsCheckingOut(true);
-    
+
     // Track begin checkout event
     trackBeginCheckout(items, totalPrice);
-    
+
     try {
       // simulate API call
       await new Promise((r) => setTimeout(r, 2000));
-      
+
       // Generate a transaction ID
       const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      
+
       // Track purchase event
       trackPurchase(transactionId, items, totalPrice);
-      
+
       clearCart();
       toast.success('Order placed successfully!');
       router.push('/order-confirmation'); // create this page as desired
@@ -98,18 +91,25 @@ export default function CartPage() {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Your Shopping Cart</h1>
 
-      <table
-        className={styles.cartTable}
-        aria-label="Shopping cart items"
-      >
+      <table className={styles.cartTable} aria-label="Shopping cart items">
         {/* Table header */}
         <thead className={styles.cartHeader}>
           <tr>
-            <th scope="col" className={styles.productColumn}>Product</th>
-            <th scope="col" className={styles.priceColumn}>Price</th>
-            <th scope="col" className={styles.quantityColumn}>Qty</th>
-            <th scope="col" className={styles.totalColumn}>Total</th>
-            <th scope="col" className={styles.actionColumn}>Action</th>
+            <th scope="col" className={styles.productColumn}>
+              Product
+            </th>
+            <th scope="col" className={styles.priceColumn}>
+              Price
+            </th>
+            <th scope="col" className={styles.quantityColumn}>
+              Qty
+            </th>
+            <th scope="col" className={styles.totalColumn}>
+              Total
+            </th>
+            <th scope="col" className={styles.actionColumn}>
+              Action
+            </th>
           </tr>
         </thead>
 
@@ -137,9 +137,7 @@ export default function CartPage() {
               </td>
 
               {/* Price cell */}
-              <td className={styles.priceColumn}>
-                {currency.format(item.price)}
-              </td>
+              <td className={styles.priceColumn}>{currency.format(item.price)}</td>
 
               {/* Quantity cell */}
               <td className={styles.quantityColumn}>
@@ -166,9 +164,7 @@ export default function CartPage() {
               </td>
 
               {/* Total cell */}
-              <td className={styles.totalColumn}>
-                {currency.format(item.price * item.quantity)}
-              </td>
+              <td className={styles.totalColumn}>{currency.format(item.price * item.quantity)}</td>
 
               {/* Action cell */}
               <td className={styles.actionColumn}>
@@ -178,8 +174,19 @@ export default function CartPage() {
                   className={styles.removeButton}
                   aria-label={`Remove ${item.name} from cart`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.removeIcon}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className={styles.removeIcon}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
                   </svg>
                 </button>
               </td>
@@ -200,9 +207,7 @@ export default function CartPage() {
                   <span>Shipping:</span>
                   <span>FREE</span>
                 </div>
-                <div
-                  className={clsx(styles.summaryRow, styles.summaryTotal)}
-                >
+                <div className={clsx(styles.summaryRow, styles.summaryTotal)}>
                   <span>Total:</span>
                   <span>{currency.format(totalPrice)}</span>
                 </div>

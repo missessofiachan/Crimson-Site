@@ -16,9 +16,9 @@
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #8B0000;
+  color: #8b0000;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -66,14 +66,13 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #8B0000;
+  border-color: #8b0000;
   box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
 }
 
 .searchInput::placeholder {
   color: #9ca3af;
 }
-
 
 .faqItem {
   background: white;
@@ -87,7 +86,7 @@
 
 .faqItem:hover {
   box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
-  border-color: #8B0000;
+  border-color: #8b0000;
 }
 
 .questionButton {
@@ -125,7 +124,7 @@
 .chevron {
   width: 1.5rem;
   height: 1.5rem;
-  color: #8B0000;
+  color: #8b0000;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -137,7 +136,9 @@
 .answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s ease;
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.5), rgba(255, 255, 255, 0.8));
 }
 
@@ -162,7 +163,7 @@
   margin-top: 4rem;
   text-align: center;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   border-radius: 16px;
   color: white;
 }
@@ -186,7 +187,7 @@
   gap: 0.5rem;
   padding: 1rem 2rem;
   background: white;
-  color: #8B0000;
+  color: #8b0000;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
@@ -233,7 +234,7 @@
 
 .clearSearchButton {
   padding: 0.75rem 1.5rem;
-  background: #8B0000;
+  background: #8b0000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -244,13 +245,13 @@
 }
 
 .clearSearchButton:hover {
-  background: #CD5C5C;
+  background: #cd5c5c;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
 }
 
 .clearSearchButton:focus {
-  outline: 2px solid #8B0000;
+  outline: 2px solid #8b0000;
   outline-offset: 2px;
 }
 
@@ -259,36 +260,36 @@
   .container {
     padding: 1rem;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
+
   .subtitle {
     font-size: 1rem;
   }
-  
+
   .questionButton {
     padding: 1.25rem;
   }
-  
+
   .questionText {
     font-size: 1rem;
   }
-  
+
   .answerOpen {
     padding: 0 1.25rem 1.25rem 1.25rem;
   }
-  
+
   .contactSection {
     padding: 2rem 1rem;
     margin-top: 3rem;
   }
-  
+
   .contactTitle {
     font-size: 1.5rem;
   }
-  
+
   .contactText {
     font-size: 1rem;
   }
@@ -312,12 +313,12 @@
 
 /* Focus states for accessibility */
 .questionButton:focus-visible {
-  outline: 2px solid #8B0000;
+  outline: 2px solid #8b0000;
   outline-offset: 2px;
 }
 
 .searchInput:focus-visible {
-  outline: 2px solid #8B0000;
+  outline: 2px solid #8b0000;
   outline-offset: 2px;
 }
 

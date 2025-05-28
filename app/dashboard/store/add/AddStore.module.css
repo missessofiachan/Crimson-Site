@@ -1,6 +1,6 @@
 .progressBar {
   width: 100%;
-  background-color: #E5E7EB; /* bg-gray-200 */
+  background-color: #e5e7eb; /* bg-gray-200 */
   border-radius: 9999px; /* rounded-full */
   height: 0.625rem; /* h-2.5 */
   margin-top: 0.5rem; /* mt-2 */
@@ -15,17 +15,39 @@
 }
 
 /* Progress fill width classes */
-.progress0 { width: 0%; }
-.progress10 { width: 10%; }
-.progress20 { width: 20%; }
-.progress30 { width: 30%; }
-.progress40 { width: 40%; }
-.progress50 { width: 50%; }
-.progress60 { width: 60%; }
-.progress70 { width: 70%; }
-.progress80 { width: 80%; }
-.progress90 { width: 90%; }
-.progress100 { width: 100%; }
+.progress0 {
+  width: 0%;
+}
+.progress10 {
+  width: 10%;
+}
+.progress20 {
+  width: 20%;
+}
+.progress30 {
+  width: 30%;
+}
+.progress40 {
+  width: 40%;
+}
+.progress50 {
+  width: 50%;
+}
+.progress60 {
+  width: 60%;
+}
+.progress70 {
+  width: 70%;
+}
+.progress80 {
+  width: 80%;
+}
+.progress90 {
+  width: 90%;
+}
+.progress100 {
+  width: 100%;
+}
 
 .imageContainer {
   position: relative;
@@ -44,7 +66,7 @@
 
 .previewText {
   font-size: 0.875rem;
-  color: #4B5563;
+  color: #4b5563;
   margin-bottom: 0.5rem;
 }
 
@@ -54,8 +76,9 @@
   color: #111;
   padding: 1.5rem;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .formGroup {
@@ -74,18 +97,21 @@
   margin-bottom: 0.5rem;
 }
 
-.input, .textarea, .select {
-  background-color: #f9f9f9;  
+.input,
+.textarea,
+.select {
+  background-color: #f9f9f9;
   color: #111;
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #D1D5DB;
+  border: 1px solid #d1d5db;
   border-radius: 0.25rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-
-.input:focus, .textarea:focus, .select:focus {
+.input:focus,
+.textarea:focus,
+.select:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
 }
@@ -93,8 +119,8 @@
 .fileInput {
   display: block;
   width: 100%;
-  color: #1F2937;
-  border: 1px solid #D1D5DB;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
   border-radius: 0.25rem;
   padding: 0.5rem 0.75rem;
 }
@@ -129,7 +155,7 @@
   vertical-align: baseline;
   font-weight: 700;
   font-size: 0.875rem;
-  color: #6B7280;
+  color: #6b7280;
   transition: color 0.2s;
 }
 

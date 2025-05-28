@@ -210,15 +210,15 @@
   .content {
     padding: 2rem 1rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
   }
-  
+
   .actions {
     flex-direction: column;
   }
-  
+
   .continueButton,
   .profileButton {
     width: 100%;

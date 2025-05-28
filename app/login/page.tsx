@@ -24,12 +24,13 @@ export default function LoginPage() {
         email,
         password,
         redirect: false,
-      });      if (result?.error) {
+      });
+      if (result?.error) {
         setError(result.error);
       } else {
         // Track successful login
         trackLogin('credentials');
-        
+
         router.push('/dashboard');
         router.refresh();
       }
@@ -79,11 +80,7 @@ export default function LoginPage() {
 
         {error && <div className={styles.error}>{error}</div>}
 
-        <button
-          className={styles.loginButton}
-          type="submit"
-          disabled={loading}
-        >
+        <button className={styles.loginButton} type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>

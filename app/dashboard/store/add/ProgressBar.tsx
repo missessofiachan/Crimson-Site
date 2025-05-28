@@ -12,7 +12,7 @@ export function ProgressBar({ progress }: ProgressBarProps) {
   const roundedProgress = Math.floor(progress / 10) * 10;
   // Get the appropriate CSS class based on the progress value
   const progressClass = styles[`progress${roundedProgress}`];
-  
+
   return (
     <div className={styles.progressBar}>
       <div className={`${styles.progressFill} ${progressClass}`}></div>

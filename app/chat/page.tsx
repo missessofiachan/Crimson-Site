@@ -4,7 +4,7 @@ import styles from './Chatbot.module.css';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([
-    { role: 'system', content: 'You are a helpful assistant.' }
+    { role: 'system', content: 'You are a helpful assistant.' },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,9 @@ export default function ChatPage() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages.map(({ role, content }) => ({ role, content })) }),
+        body: JSON.stringify({
+          messages: newMessages.map(({ role, content }) => ({ role, content })),
+        }),
       });
       const data = await res.json();
       if (data.message) {
@@ -39,34 +41,39 @@ export default function ChatPage() {
     <div className={styles['chatbot-container']}>
       <h2>Chatbot</h2>
       <div className={styles['chatbot-messages']}>
-        {messages.filter(m => m.role !== 'system').map((m, i) => (
-          <div
-            key={i}
-            className={
-              styles['chatbot-message'] + ' ' +
-              (m.role === 'user' ? styles['user'] : styles['assistant'])
-            }
-          >
-            <b>{m.role === 'user' ? 'You' : 'Bot'}:</b> {m.content}
-          </div>
-        ))}
+        {messages
+          .filter((m) => m.role !== 'system')
+          .map((m, i) => (
+            <div
+              key={i}
+              className={
+                styles['chatbot-message'] +
+                ' ' +
+                (m.role === 'user' ? styles['user'] : styles['assistant'])
+              }
+            >
+              <b>{m.role === 'user' ? 'You' : 'Bot'}:</b> {m.content}
+            </div>
+          ))}
         {loading && <div>Bot is typing...</div>}
         {error && <div className={styles['chatbot-error']}>{error}</div>}
       </div>
       <form onSubmit={sendMessage} className={styles['chatbot-form']}>
         <input
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."
           className={styles['chatbot-input']}
           disabled={loading}
         />
-        <button type="submit" disabled={loading || !input.trim()} className={styles['chatbot-button']}>
+        <button
+          type="submit"
+          disabled={loading || !input.trim()}
+          className={styles['chatbot-button']}
+        >
           Send
         </button>
       </form>
     </div>
   );
 }
-
-

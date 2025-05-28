@@ -20,7 +20,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
   const { id } = React.use(params);
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -46,19 +46,19 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
       try {
         setFetchLoading(true);
         const response = await fetch(`/api/store/items/${id}`);
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch item');
         }
-        
+
         const item: StoreItem = await response.json();
-        
+
         setName(item.name);
         setDescription(item.description);
         setPrice(item.price.toString());
         setCategory(item.category);
         setImageUrl(item.imageUrl);
-        
+
         if (item.imageUrl) {
           setImagePreview(item.imageUrl);
         }
@@ -77,7 +77,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setFileToUpload(file);
-    
+
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -89,24 +89,24 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
 
   const uploadImage = async () => {
     if (!fileToUpload) return imageUrl;
-    
+
     setUploadProgress(10);
     const formData = new FormData();
     formData.append('file', fileToUpload);
-    
+
     try {
       setUploadProgress(30);
       const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
-      
+
       setUploadProgress(80);
-      
+
       if (!response.ok) {
         throw new Error('Failed to upload image');
       }
-      
+
       const data = await response.json();
       setUploadProgress(100);
       return data.fileUrl;
@@ -122,24 +122,24 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
       // Validate form
       if (!name || !description || !price) {
         throw new Error('Please fill in all required fields');
       }
-      
+
       // Validate price is a number
       if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
         throw new Error('Price must be a positive number');
       }
-      
+
       // Upload image if changed
       let finalImageUrl = imageUrl;
       if (fileToUpload) {
         finalImageUrl = await uploadImage();
       }
-      
+
       // Update store item
       const response = await fetch(`/api/store/items/${id}`, {
         method: 'PUT',
@@ -154,12 +154,12 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
           category: category || 'uncategorized',
         }),
       });
-      
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || 'Failed to update store item');
       }
-      
+
       // Redirect on success
       router.push('/dashboard/store');
       router.refresh();
@@ -176,13 +176,13 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
   return (
     <div>
       <h1 className={styles.pageTitle}>Edit Store Item</h1>
-      
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
         </div>
       )}
-      
+
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
@@ -197,7 +197,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             required
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
             Description *
@@ -211,7 +211,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             required
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
             Price ($) *
@@ -227,7 +227,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             required
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
             Category
@@ -241,7 +241,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             placeholder="e.g., Electronics, Clothing, etc."
           />
         </div>
-        
+
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
             Item Image
@@ -253,27 +253,27 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             accept="image/*"
             onChange={handleImageChange}
           />
-          
+
           <div className="text-xs text-gray-500 mt-1">
             {imageUrl ? 'Upload new image to replace the current one' : 'No image currently set'}
           </div>
-            {uploadProgress > 0 && uploadProgress < 100 && (
+          {uploadProgress > 0 && uploadProgress < 100 && (
             <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-              <div 
+              <div
                 className={`bg-crimson-dark h-2.5 rounded-full ${styles.uploadProgressBar}`}
                 data-progress={uploadProgress}
                 style={{ width: `${uploadProgress}%` }}
               ></div>
             </div>
           )}
-          
+
           {imagePreview && (
             <div className="mt-4">
               <p className="text-sm text-gray-600 mb-2">Image Preview:</p>
               <div className="relative h-40 w-40">
-                <Image 
-                  src={imagePreview} 
-                  alt="Preview" 
+                <Image
+                  src={imagePreview}
+                  alt="Preview"
                   width={160}
                   height={160}
                   style={{ objectFit: 'cover' }}
@@ -283,7 +283,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
             </div>
           )}
         </div>
-        
+
         <div className="flex items-center justify-between">
           <button
             className="bg-crimson-dark hover:bg-crimson text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

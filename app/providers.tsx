@@ -7,9 +7,7 @@ import { CartProvider } from '@/lib/cart';
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
-      <CartProvider>
-        {children}
-      </CartProvider>
+      <CartProvider>{children}</CartProvider>
     </SessionProvider>
   );
 }

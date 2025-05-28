@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useState,
-  useCallback,
-  useRef,
-  FormEvent,
-  ChangeEvent,
-} from 'react';
+import React, { useState, useCallback, useRef, FormEvent, ChangeEvent } from 'react';
 import { toast } from 'react-hot-toast';
 import styles from './ContactForm.module.css';
 
@@ -95,9 +89,7 @@ const FormField: React.FC<FieldProps> = ({
 
 export default function ContactForm() {
   const [data, setData] = useState<FormData>(initialData);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
-    {}
-  );
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -109,22 +101,18 @@ export default function ContactForm() {
     message: useRef<HTMLTextAreaElement>(null),
   };
 
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
-      setData((prev) => ({ ...prev, [name]: value }));
-      // clear field-specific error as user types
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
-    },
-    []
-  );
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+    // clear field-specific error as user types
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
+  }, []);
 
   const validate = useCallback((): boolean => {
     const newErrs: typeof errors = {};
     if (!data.name.trim()) newErrs.name = 'Name is required';
     if (!data.email.trim()) newErrs.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-      newErrs.email = 'Email looks invalid';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) newErrs.email = 'Email looks invalid';
     if (!data.message.trim()) newErrs.message = 'Message is required';
     setErrors(newErrs);
 
@@ -167,20 +155,12 @@ export default function ContactForm() {
 
       {/* status message */}
       {success && (
-        <div
-          className={styles.success}
-          role="status"
-          aria-live="polite"
-        >
+        <div className={styles.success} role="status" aria-live="polite">
           Thanks! We'll be in touch shortly.
         </div>
       )}
       {Object.values(errors).some(Boolean) && !success && (
-        <div
-          className={styles.error}
-          role="alert"
-          aria-live="polite"
-        >
+        <div className={styles.error} role="alert" aria-live="polite">
           Please fix the errors below.
         </div>
       )}

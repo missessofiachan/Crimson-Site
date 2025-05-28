@@ -20,23 +20,23 @@ export default function AdminSetupPage() {
     e.preventDefault();
     setError('');
     setSuccess('');
-    
+
     // Basic validation
     if (!name || !email || !password || !setupKey) {
       setError('All fields are required');
       return;
     }
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
-    
+
     setLoading(true);
 
     try {
@@ -66,7 +66,7 @@ export default function AdminSetupPage() {
       setPassword('');
       setConfirmPassword('');
       setSetupKey('');
-      
+
       // Redirect to login after a short delay
       setTimeout(() => {
         router.push('/login');
@@ -171,11 +171,7 @@ export default function AdminSetupPage() {
           </p>
         </div>
 
-        <button
-          className={styles.loginButton}
-          type="submit"
-          disabled={loading}
-        >
+        <button className={styles.loginButton} type="submit" disabled={loading}>
           {loading ? 'Creating Admin...' : 'Create Admin Account'}
         </button>
       </form>

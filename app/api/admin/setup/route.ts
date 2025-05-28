@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
-import clientPromise from "@/lib/mongodb";
+import { NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
+import clientPromise from '@/lib/mongodb';
 
 // This endpoint is used to create the initial admin account
 
@@ -10,56 +10,47 @@ export async function POST(req: Request) {
 
     // Verify setup key - this is a simple security measure
     // In production, use a more secure method and environment variable
-    if (setupKey !== "crimson-initial-setup") {
-      return NextResponse.json({ error: "Invalid setup key" }, { status: 401 });
+    if (setupKey !== 'crimson-initial-setup') {
+      return NextResponse.json({ error: 'Invalid setup key' }, { status: 401 });
     }
 
     if (!name || !email || !password) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
     // Check if there's already an admin user
-    const adminExists = await db.collection("users").findOne({ role: "admin" });
+    const adminExists = await db.collection('users').findOne({ role: 'admin' });
     if (adminExists) {
-      return NextResponse.json(
-        { error: "Admin account already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Admin account already exists' }, { status: 400 });
     }
 
     // Check if the email is already in use
-    const existingUser = await db.collection("users").findOne({ email });
+    const existingUser = await db.collection('users').findOne({ email });
     if (existingUser) {
-      return NextResponse.json(
-        { error: "Email already in use" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Email already in use' }, { status: 400 });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create admin user
-    const result = await db.collection("users").insertOne({
+    const result = await db.collection('users').insertOne({
       name,
       email,
       password: hashedPassword,
-      role: "admin",
+      role: 'admin',
       createdAt: new Date(),
     });
 
     return NextResponse.json({
-      message: "Admin account created successfully",
+      message: 'Admin account created successfully',
       userId: result.insertedId,
     });
   } catch (error) {
-    console.error("Admin setup error:", error);
-    return NextResponse.json(
-      { error: "Failed to create admin account" },
-      { status: 500 }
-    );
+    console.error('Admin setup error:', error);
+    return NextResponse.json({ error: 'Failed to create admin account' }, { status: 500 });
   }
 }

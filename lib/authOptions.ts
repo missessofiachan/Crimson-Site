@@ -1,47 +1,47 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
-import clientPromise from "@/lib/mongodb";
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { compare } from 'bcrypt';
+import clientPromise from '@/lib/mongodb';
 
 // Export authOptions for reuse across the application
 export const authOptions = {
   providers: [
     CredentialsProvider({
-      id: "credentials",
-      name: "Credentials",
+      id: 'credentials',
+      name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" }
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Email and password required");
+          throw new Error('Email and password required');
         }
 
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
-        const user = await db.collection("users").findOne({ email: credentials.email });
+        const user = await db.collection('users').findOne({ email: credentials.email });
 
         if (!user || !user.password) {
-          throw new Error("Email does not exist");
+          throw new Error('Email does not exist');
         }
 
         const isCorrectPassword = await compare(credentials.password, user.password);
 
         if (!isCorrectPassword) {
-          throw new Error("Invalid password");
+          throw new Error('Invalid password');
         }
 
         return {
           id: user._id.toString(),
           name: user.name || user.email,
           email: user.email,
-          role: user.role || "user",
+          role: user.role || 'user',
         };
-      }
-    })
+      },
+    }),
   ],
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   callbacks: {
     async session({ session, token }: { session: any; token: any }) {
@@ -56,11 +56,11 @@ export const authOptions = {
         token.role = user.role;
       }
       return token;
-    }
+    },
   },
   session: {
-    strategy: "jwt" as const,
+    strategy: 'jwt' as const,
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === 'development',
 };

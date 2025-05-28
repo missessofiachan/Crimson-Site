@@ -46,20 +46,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (items.length > 0) {
       localStorage.setItem('cart', JSON.stringify(items));
     }
-    
+
     // Calculate totals
     const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
-    const price = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    
+    const price = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
     setTotalItems(itemCount);
     setTotalPrice(price);
   }, [items]);
 
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    setItems(prevItems => {
+    setItems((prevItems) => {
       // Check if item is already in cart
-      const existingItemIndex = prevItems.findIndex(item => item._id === product._id);
-      
+      const existingItemIndex = prevItems.findIndex((item) => item._id === product._id);
+
       if (existingItemIndex >= 0) {
         // Item exists, increment quantity
         const updatedItems = [...prevItems];
@@ -73,22 +73,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
-    
+
     // Track add to cart event
     trackAddToCart(product);
   };
 
   const removeFromCart = (itemId: string) => {
     // Find the item being removed for tracking
-    const itemToRemove = items.find(item => item._id === itemId);
-    
-    setItems(prevItems => prevItems.filter(item => item._id !== itemId));
-    
+    const itemToRemove = items.find((item) => item._id === itemId);
+
+    setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
+
     // Track remove from cart event
     if (itemToRemove) {
       trackRemoveFromCart(itemToRemove);
     }
-    
+
     // If cart is now empty, remove from localStorage
     if (items.length === 1) {
       localStorage.removeItem('cart');
@@ -97,11 +97,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateQuantity = (itemId: string, quantity: number) => {
     if (quantity < 1) return;
-    
-    setItems(prevItems => 
-      prevItems.map(item => 
-        item._id === itemId ? { ...item, quantity } : item
-      )
+
+    setItems((prevItems) =>
+      prevItems.map((item) => (item._id === itemId ? { ...item, quantity } : item))
     );
   };
 
@@ -111,15 +109,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{
-      items,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      totalItems,
-      totalPrice,
-    }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        totalItems,
+        totalPrice,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

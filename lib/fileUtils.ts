@@ -27,7 +27,9 @@ export async function deleteImageFile(imageUrl: string): Promise<boolean> {
  * @param imageUrls - Array of Cloudinary image URLs
  * @returns Promise<{ success: number, failed: number }> - Returns count of successful and failed deletions
  */
-export async function deleteImageFiles(imageUrls: string[]): Promise<{ success: number, failed: number }> {
+export async function deleteImageFiles(
+  imageUrls: string[]
+): Promise<{ success: number; failed: number }> {
   let success = 0;
   let failed = 0;
 
@@ -49,22 +51,23 @@ export async function deleteImageFiles(imageUrls: string[]): Promise<{ success: 
  * @param db - MongoDB database instance
  * @returns Promise<{ deleted: string[], errors: string[] }> - Returns arrays of deleted files and errors
  */
-export async function cleanupOrphanedImages(db: any): Promise<{ deleted: string[], errors: string[] }> {
+export async function cleanupOrphanedImages(
+  db: any
+): Promise<{ deleted: string[]; errors: string[] }> {
   const deleted: string[] = [];
   const errors: string[] = [];
 
   try {
     console.log('Note: Orphaned image cleanup for Cloudinary requires manual review');
     console.log('Consider implementing a scheduled job to track and clean unused images');
-    
+
     // For now, this function is a placeholder
     // In a production environment, you would want to:
     // 1. Keep track of uploaded images in a separate collection
     // 2. Periodically compare with referenced images
     // 3. Delete unreferenced images after a grace period
-    
-    return { deleted, errors };
 
+    return { deleted, errors };
   } catch (error) {
     console.error('Error during orphaned images cleanup:', error);
     errors.push(`Cleanup error: ${error}`);

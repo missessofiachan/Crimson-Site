@@ -10,8 +10,7 @@ export default function CatFactPage() {
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      
-      
+
       const factRes = await fetch('https://catfact.ninja/fact');
       const factData = await factRes.json();
       setFact(factData.fact);

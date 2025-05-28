@@ -16,13 +16,15 @@ export default function FAQPage() {
         <div className={styles.faqItem}>
           <h2 className={styles.question}>What is Crimson E-Commerce?</h2>
           <p className={styles.answer}>
-            Crimson E-Commerce is an online store offering a wide range of premium products with fast delivery and excellent customer service.
+            Crimson E-Commerce is an online store offering a wide range of premium products with
+            fast delivery and excellent customer service.
           </p>
         </div>
         <div className={styles.faqItem}>
           <h2 className={styles.question}>How can I place an order?</h2>
           <p className={styles.answer}>
-            You can place an order by browsing our products, adding them to your cart, and proceeding to checkout.
+            You can place an order by browsing our products, adding them to your cart, and
+            proceeding to checkout.
           </p>
         </div>
         <div className={styles.faqItem}>
@@ -34,7 +36,8 @@ export default function FAQPage() {
         <div className={styles.faqItem}>
           <h2 className={styles.question}>How can I track my order?</h2>
           <p className={styles.answer}>
-            After placing your order, you will receive a confirmation email with tracking information.
+            After placing your order, you will receive a confirmation email with tracking
+            information.
           </p>
         </div>
       </div>

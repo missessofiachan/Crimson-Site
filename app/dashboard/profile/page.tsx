@@ -117,11 +117,7 @@ export default function ProfilePage() {
               >
                 {status === 'saving' ? 'Saving...' : 'Save Changes'}
               </button>
-              <button
-                type="button"
-                onClick={toggleEdit}
-                className="text-gray-500 hover:underline"
-              >
+              <button type="button" onClick={toggleEdit} className="text-gray-500 hover:underline">
                 Cancel
               </button>
             </div>

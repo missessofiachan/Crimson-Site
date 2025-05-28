@@ -38,7 +38,7 @@ export const trackPurchase = (transactionId: string, items: any[], value: number
       transaction_id: transactionId,
       value: value,
       currency: 'AUD',
-      items: items.map(item => ({
+      items: items.map((item) => ({
         item_id: item._id,
         item_name: item.name,
         category: item.category || 'uncategorized',
@@ -54,13 +54,15 @@ export const trackAddToCart = (item: any) => {
     window.gtag('event', 'add_to_cart', {
       currency: 'AUD',
       value: item.price,
-      items: [{
-        item_id: item._id,
-        item_name: item.name,
-        category: item.category || 'uncategorized',
-        quantity: 1,
-        price: item.price,
-      }],
+      items: [
+        {
+          item_id: item._id,
+          item_name: item.name,
+          category: item.category || 'uncategorized',
+          quantity: 1,
+          price: item.price,
+        },
+      ],
     });
   }
 };
@@ -70,13 +72,15 @@ export const trackRemoveFromCart = (item: any) => {
     window.gtag('event', 'remove_from_cart', {
       currency: 'AUD',
       value: item.price * item.quantity,
-      items: [{
-        item_id: item._id,
-        item_name: item.name,
-        category: item.category || 'uncategorized',
-        quantity: item.quantity,
-        price: item.price,
-      }],
+      items: [
+        {
+          item_id: item._id,
+          item_name: item.name,
+          category: item.category || 'uncategorized',
+          quantity: item.quantity,
+          price: item.price,
+        },
+      ],
     });
   }
 };
@@ -86,12 +90,14 @@ export const trackViewItem = (item: any) => {
     window.gtag('event', 'view_item', {
       currency: 'AUD',
       value: item.price,
-      items: [{
-        item_id: item._id,
-        item_name: item.name,
-        category: item.category || 'uncategorized',
-        price: item.price,
-      }],
+      items: [
+        {
+          item_id: item._id,
+          item_name: item.name,
+          category: item.category || 'uncategorized',
+          price: item.price,
+        },
+      ],
     });
   }
 };
@@ -109,7 +115,7 @@ export const trackBeginCheckout = (items: any[], value: number) => {
     window.gtag('event', 'begin_checkout', {
       currency: 'AUD',
       value: value,
-      items: items.map(item => ({
+      items: items.map((item) => ({
         item_id: item._id,
         item_name: item.name,
         category: item.category || 'uncategorized',

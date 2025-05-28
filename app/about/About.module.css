@@ -5,7 +5,7 @@
 }
 
 .hero {
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   color: white;
   padding: 6rem 2rem 4rem 2rem;
   text-align: center;
@@ -20,7 +20,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></svg>')
+    repeat;
   opacity: 0.3;
 }
 
@@ -58,7 +59,7 @@
 .sectionTitle {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #8B0000;
+  color: #8b0000;
   margin-bottom: 2rem;
   text-align: center;
   position: relative;
@@ -72,7 +73,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   border-radius: 2px;
 }
 
@@ -113,7 +114,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -131,7 +132,7 @@
   width: 4rem;
   height: 4rem;
   margin: 0 auto 1.5rem auto;
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -181,7 +182,7 @@
 }
 
 .techItem:hover {
-  border-color: #8B0000;
+  border-color: #8b0000;
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
 }
@@ -189,7 +190,7 @@
 .techName {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #8B0000;
+  color: #8b0000;
   margin-bottom: 0.5rem;
 }
 
@@ -221,7 +222,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.03"><circle cx="30" cy="30" r="4"/></g></svg>') repeat;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.03"><circle cx="30" cy="30" r="4"/></g></svg>')
+    repeat;
   opacity: 0.5;
 }
 
@@ -232,7 +234,7 @@
 }
 
 .githubIcon svg {
-  color: #CD5C5C;
+  color: #cd5c5c;
 }
 
 .githubText {
@@ -258,7 +260,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: #8B0000;
+  background: #8b0000;
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -268,7 +270,7 @@
 }
 
 .githubButton:hover {
-  background: #CD5C5C;
+  background: #cd5c5c;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
 }
@@ -296,8 +298,8 @@
 }
 
 .contactCard:hover {
-  border-color: #8B0000;
-  color: #8B0000;
+  border-color: #8b0000;
+  color: #8b0000;
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
 }
@@ -316,7 +318,7 @@
 }
 
 .contactCard:hover .contactIcon {
-  background: linear-gradient(135deg, #8B0000, #CD5C5C);
+  background: linear-gradient(135deg, #8b0000, #cd5c5c);
   color: white;
   transform: scale(1.1);
 }
@@ -331,42 +333,42 @@
   .title {
     font-size: 2.5rem;
   }
-  
+
   .subtitle {
     font-size: 1.25rem;
   }
-  
+
   .hero {
     padding: 4rem 1rem 3rem 1rem;
   }
-  
+
   .content {
     padding: 3rem 1rem;
   }
-  
+
   .sectionTitle {
     font-size: 1.875rem;
   }
-  
+
   .missionGrid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .missionCard {
     padding: 2rem;
   }
-  
+
   .techStack {
     grid-template-columns: 1fr;
   }
-  
+
   .githubContent {
     flex-direction: column;
     text-align: center;
     padding: 2rem;
   }
-  
+
   .contactGrid {
     grid-template-columns: 1fr;
   }
@@ -376,23 +378,23 @@
   .title {
     font-size: 2rem;
   }
-  
+
   .subtitle {
     font-size: 1.125rem;
   }
-  
+
   .sectionTitle {
     font-size: 1.5rem;
   }
-  
+
   .text {
     font-size: 1rem;
   }
-  
+
   .missionCard {
     padding: 1.5rem;
   }
-  
+
   .githubContent {
     padding: 1.5rem;
   }
@@ -410,13 +412,15 @@
   }
 }
 
-.missionCard, .techItem, .contactCard {
+.missionCard,
+.techItem,
+.contactCard {
   animation: fadeInUp 0.6s ease-out;
 }
 
 /* Focus states for accessibility */
 .contactCard:focus,
 .githubButton:focus {
-  outline: 2px solid #8B0000;
+  outline: 2px solid #8b0000;
   outline-offset: 2px;
 }

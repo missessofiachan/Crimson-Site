@@ -18,18 +18,18 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     // Basic validation
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
-    
+
     setLoading(true);
 
     try {
@@ -45,7 +45,8 @@ export default function RegisterPage() {
         }),
       });
 
-      const data = await response.json();      if (!response.ok) {
+      const data = await response.json();
+      if (!response.ok) {
         throw new Error(data.error || 'Registration failed');
       }
 
@@ -127,11 +128,7 @@ export default function RegisterPage() {
 
         {error && <div className={styles.error}>{error}</div>}
 
-        <button
-          className={styles.loginButton}
-          type="submit"
-          disabled={loading}
-        >
+        <button className={styles.loginButton} type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>

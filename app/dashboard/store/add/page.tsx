@@ -17,7 +17,7 @@ interface Category {
 export default function AddStorePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -27,9 +27,10 @@ export default function AddStorePage() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [uploadProgress, setUploadProgress] = useState(0);  const [categories, setCategories] = useState<Category[]>([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
-  
+
   // Check if user is authenticated and admin
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -42,7 +43,7 @@ export default function AddStorePage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setFileToUpload(file);
-    
+
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -56,24 +57,24 @@ export default function AddStorePage() {
 
   const uploadImage = async () => {
     if (!fileToUpload) return null;
-    
+
     setUploadProgress(10);
     const formData = new FormData();
     formData.append('file', fileToUpload);
-    
+
     try {
       setUploadProgress(30);
       const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
-      
+
       setUploadProgress(80);
-      
+
       if (!response.ok) {
         throw new Error('Failed to upload image');
       }
-      
+
       const data = await response.json();
       setUploadProgress(100);
       return data.fileUrl;
@@ -89,24 +90,24 @@ export default function AddStorePage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
       // Validate form
       if (!name || !description || !price) {
         throw new Error('Please fill in all required fields');
       }
-      
+
       // Validate price is a number
       if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
         throw new Error('Price must be a positive number');
       }
-      
+
       // Upload image if selected
       let finalImageUrl = imageUrl;
       if (fileToUpload) {
         finalImageUrl = await uploadImage();
       }
-      
+
       // Create store item
       const response = await fetch('/api/store/items', {
         method: 'POST',
@@ -121,12 +122,12 @@ export default function AddStorePage() {
           category: category || 'uncategorized',
         }),
       });
-      
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || 'Failed to create store item');
       }
-      
+
       // Redirect on success
       router.push('/dashboard/store');
       router.refresh();
@@ -143,11 +144,11 @@ export default function AddStorePage() {
       try {
         setLoadingCategories(true);
         const response = await fetch('/api/store/categories');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
-        
+
         const data = await response.json();
         setCategories(data.categories);
       } catch (err) {
@@ -156,20 +157,20 @@ export default function AddStorePage() {
         setLoadingCategories(false);
       }
     };
-    
+
     fetchCategories();
   }, []);
 
   return (
     <div>
       <h1 className={styles.pageTitle}>Add New Store Item</h1>
-      
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
         </div>
       )}
-        <form onSubmit={handleSubmit} className={addStyles.formContainer}>
+      <form onSubmit={handleSubmit} className={addStyles.formContainer}>
         <div className={addStyles.formGroup}>
           <label className={addStyles.label} htmlFor="name">
             Item Name *
@@ -183,7 +184,7 @@ export default function AddStorePage() {
             required
           />
         </div>
-        
+
         <div className={addStyles.formGroup}>
           <label className={addStyles.label} htmlFor="description">
             Description *
@@ -197,7 +198,7 @@ export default function AddStorePage() {
             required
           />
         </div>
-        
+
         <div className={addStyles.formGroup}>
           <label className={addStyles.label} htmlFor="price">
             Price ($) *
@@ -213,7 +214,7 @@ export default function AddStorePage() {
             required
           />
         </div>
-        
+
         <div className={addStyles.formGroup}>
           <label className={addStyles.label} htmlFor="category">
             Category
@@ -237,50 +238,34 @@ export default function AddStorePage() {
             )}
           </select>
         </div>
-        
+
         <div className={addStyles.formGroupLarge}>
           <label className={addStyles.label} htmlFor="image">
             Item Image
-          </label>          <input
+          </label>{' '}
+          <input
             className={addStyles.fileInput}
             id="image"
             type="file"
             accept="image/*"
             onChange={handleImageChange}
           />
-          
-          {uploadProgress > 0 && uploadProgress < 100 && (
-            <ProgressBar progress={uploadProgress} />
-          )}
-          
+          {uploadProgress > 0 && uploadProgress < 100 && <ProgressBar progress={uploadProgress} />}
           {imagePreview && (
             <div className={addStyles.previewSection}>
               <p className={addStyles.previewText}>Image Preview:</p>
               <div className={addStyles.imageContainer}>
-                <Image 
-                  src={imagePreview} 
-                  alt="Preview" 
-                  fill 
-                  className={addStyles.imagePreview}
-                />
+                <Image src={imagePreview} alt="Preview" fill className={addStyles.imagePreview} />
               </div>
             </div>
           )}
         </div>
-        
+
         <div className={addStyles.buttonContainer}>
-          <button
-            className={addStyles.submitButton}
-            type="submit"
-            disabled={loading}
-          >
+          <button className={addStyles.submitButton} type="submit" disabled={loading}>
             {loading ? 'Creating...' : 'Create Item'}
           </button>
-          <button
-            className={addStyles.cancelButton}
-            type="button"
-            onClick={() => router.back()}
-          >
+          <button className={addStyles.cancelButton} type="button" onClick={() => router.back()}>
             Cancel
           </button>
         </div>

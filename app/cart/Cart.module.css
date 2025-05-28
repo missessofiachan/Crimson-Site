@@ -69,7 +69,9 @@
   width: 45%;
 }
 
-.priceColumn, .totalColumn, .quantityColumn {
+.priceColumn,
+.totalColumn,
+.quantityColumn {
   width: 15%;
 }
 
@@ -241,12 +243,12 @@
     display: block;
     overflow-x: auto;
   }
-  
+
   .productInfo {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .productColumn {
     width: auto;
   }

@@ -1,7 +1,5 @@
 # Crimson-Site
 
-
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Features
@@ -9,7 +7,6 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - Modern Next.js app directory structure (App Router)
 - Chatbot powered by OpenRouter/Meta Llama ([/chat](./app/chat))
 - Cat Fact generator ([/cat-fact](./app/cat-fact))
-- Todo list with MongoDB backend ([/Todo](./app/Todo))
 - Gallery page ([/gallery](./app/gallery))
 - **Contact Us** page with styled, accessible form ([/contact](./app/contact))
 - **User System** with authentication and admin controls
@@ -100,12 +97,14 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 ### Deployment Checklist
 
 1. **Environment Variables**: Set all required environment variables in the Vercel dashboard:
+
    - `MONGODB_URI`: Your MongoDB connection string
    - `MONGODB_DB`: Your database name
    - `NEXTAUTH_SECRET`: A random string for NextAuth.js
    - `NEXTAUTH_URL`: Your deployment URL
 
 2. **Node.js Version**: Use Node.js 18.x or later (required for Next.js 15.x)
+
    - You can specify this in Vercel's dashboard under Project Settings > General > Node.js Version
 
 3. **Punycode Warning**: Ignore any punycode deprecation warnings during build; they come from a dependency.

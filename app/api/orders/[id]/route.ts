@@ -102,12 +102,18 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
 }
 
-// DELETE /api/orders/[id] - Delete order (admin only, or user for pending orders)
+// DELETE /api/orders/[id] - Delete order (admin only)
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Check if user is admin
+    const isAdmin = session.user.role === 'admin';
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
     const { id } = await params;
@@ -119,36 +125,23 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     const client = await connectToDatabase;
     const db = client.db();
 
-    // First check if order exists and belongs to user
-    const order = await db.collection('orders').findOne({
-      _id: new ObjectId(id),
-      userId: session.user.id,
-    });
+    // First check if order exists
+    const order = await db.collection('orders').findOne({ _id: new ObjectId(id) });
 
     if (!order) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
-    // Only allow deletion of pending orders
-    if (order.status !== 'pending') {
-      return NextResponse.json(
-        {
-          error: 'Only pending orders can be deleted',
-        },
-        { status: 400 }
-      );
-    }
-
-    const result = await db.collection('orders').deleteOne({
-      _id: new ObjectId(id),
-      userId: session.user.id,
-    });
+    const result = await db.collection('orders').deleteOne({ _id: new ObjectId(id) });
 
     if (result.deletedCount === 0) {
       return NextResponse.json({ error: 'Failed to delete order' }, { status: 500 });
     }
 
-    return NextResponse.json({ message: 'Order deleted successfully' });
+    return NextResponse.json({
+      message: 'Order deleted successfully',
+      deletedBy: 'admin',
+    });
   } catch (error) {
     console.error('Error deleting order:', error);
     return NextResponse.json({ error: 'Failed to delete order' }, { status: 500 });

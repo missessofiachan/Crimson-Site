@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import type { Order } from '@/types/order';
 
 export default function ProfilePage() {
   const { data: session } = useSession();
@@ -13,6 +14,9 @@ export default function ProfilePage() {
   const [name, setName] = useState('');
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+  const [ordersError, setOrdersError] = useState('');
 
   // Sync name with session when it loads
   useEffect(() => {
@@ -20,6 +24,25 @@ export default function ProfilePage() {
       setName(session.user.name);
     }
   }, [session?.user?.name]);
+
+  useEffect(() => {
+    if (!session?.user) return;
+    const fetchOrders = async () => {
+      setOrdersLoading(true);
+      setOrdersError('');
+      try {
+        const res = await fetch('/api/orders');
+        if (!res.ok) throw new Error('Failed to fetch orders');
+        const data = await res.json();
+        setOrders(data.orders || []);
+      } catch (err: any) {
+        setOrdersError(err.message || 'Could not load orders');
+      } finally {
+        setOrdersLoading(false);
+      }
+    };
+    fetchOrders();
+  }, [session?.user]);
 
   const toggleEdit = useCallback(() => {
     setError('');
@@ -79,7 +102,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white shadow rounded-lg p-6 mb-8">
         {isEditing ? (
           <form onSubmit={handleSave} noValidate>
             <div className="mb-4">
@@ -147,6 +170,55 @@ export default function ProfilePage() {
             >
               Edit Profile
             </button>
+          </div>
+        )}
+      </div>
+
+      {/* Order History Section */}
+      <div className="bg-white shadow rounded-lg p-6">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900">Order History</h2>
+        {ordersLoading ? (
+          <p className="text-gray-900">Loading orders...</p>
+        ) : ordersError ? (
+          <p className="text-red-600">{ordersError}</p>
+        ) : orders.length === 0 ? (
+          <p className="text-gray-900">You have not placed any orders yet.</p>
+        ) : (
+          <div className="space-y-6">
+            {orders.map((order) => (
+              <div key={order._id} className="border rounded p-4 bg-white">
+                <div className="flex flex-wrap justify-between items-center mb-2">
+                  <div>
+                    <span className="font-semibold text-gray-900">Order ID:</span>{' '}
+                    <span className="font-mono text-gray-900">{order._id}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-gray-900">Date:</span>
+                    <span className="text-gray-900">
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-gray-900">Status:</span>{' '}
+                    <span className="capitalize text-gray-900">{order.status}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-gray-900">Total:</span>{' '}
+                    <span className="text-gray-900">${order.total.toFixed(2)}</span>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <span className="font-semibold text-gray-900">Items:</span>
+                  <ul className="list-disc list-inside ml-4">
+                    {order.items.map((item) => (
+                      <li key={item._id} className="text-gray-900">
+                        {item.name} (x{item.quantity}) - ${item.price.toFixed(2)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

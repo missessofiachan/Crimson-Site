@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import styles from '../../Dashboard.module.css';
 import { useProtectedRoute, useIsAdmin } from '@/lib/auth';
 import { toast } from 'react-hot-toast';
@@ -17,8 +16,6 @@ interface Category {
 export default function CategoriesPage() {
   // Use the protected route hook with admin role requirement
   const { loading: authLoading } = useProtectedRoute({ requiredRole: 'admin' });
-  const isAdmin = useIsAdmin();
-  const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -119,7 +116,7 @@ export default function CategoriesPage() {
 
   return (
     <div>
-      <h1 className={styles.pageTitle}>Category Management</h1>{' '}
+      <h1 className={styles.pageTitle}>Category Management</h1>
       <div className="mb-6">
         <p className="mb-4 text-gray-800">Manage your product categories below</p>
 
@@ -127,7 +124,6 @@ export default function CategoriesPage() {
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Add New Category</h2>
 
           <form onSubmit={handleAddCategory}>
-            {' '}
             <div className="mb-4">
               <label
                 htmlFor="categoryName"
@@ -150,7 +146,7 @@ export default function CategoriesPage() {
                 className="block text-sm font-medium text-gray-800 mb-1"
               >
                 Description (Optional)
-              </label>{' '}
+              </label>
               <textarea
                 id="categoryDescription"
                 value={newCategory.description}
@@ -173,56 +169,53 @@ export default function CategoriesPage() {
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}
         </div>
-      )}{' '}
+      )}
       {loading ? (
         <div className="text-center py-12 text-gray-800">Loading categories...</div>
       ) : (
-        <>
-          {' '}
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-              <thead className="bg-gray-100">
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="py-2 px-4 border-b text-gray-800">Name</th>
+                <th className="py-2 px-4 border-b text-gray-800">Description</th>
+                <th className="py-2 px-4 border-b text-gray-800">Created At</th>
+                <th className="py-2 px-4 border-b text-gray-800">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.length === 0 ? (
                 <tr>
-                  <th className="py-2 px-4 border-b text-gray-800">Name</th>
-                  <th className="py-2 px-4 border-b text-gray-800">Description</th>
-                  <th className="py-2 px-4 border-b text-gray-800">Created At</th>
-                  <th className="py-2 px-4 border-b text-gray-800">Actions</th>
+                  <td colSpan={4} className="py-4 px-4 text-center text-gray-800">
+                    No categories found. Add your first category!
+                  </td>
                 </tr>
-              </thead>{' '}
-              <tbody>
-                {categories.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="py-4 px-4 text-center text-gray-800">
-                      No categories found. Add your first category!
+              ) : (
+                categories.map((category) => (
+                  <tr key={category._id} className="hover:bg-gray-50">
+                    <td className="py-2 px-4 border-b text-gray-800">{category.name}</td>
+                    <td className="py-2 px-4 border-b text-gray-800">
+                      {category.description || '-'}
+                    </td>
+                    <td className="py-2 px-4 border-b text-gray-800">
+                      {new Date(category.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="py-2 px-4 border-b">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleDeleteCategory(category._id, category.name)}
+                          className="text-red-600 hover:underline"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                ) : (
-                  categories.map((category) => (
-                    <tr key={category._id} className="hover:bg-gray-50">
-                      <td className="py-2 px-4 border-b text-gray-800">{category.name}</td>
-                      <td className="py-2 px-4 border-b text-gray-800">
-                        {category.description || '-'}
-                      </td>
-                      <td className="py-2 px-4 border-b text-gray-800">
-                        {new Date(category.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="py-2 px-4 border-b">
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => handleDeleteCategory(category._id, category.name)}
-                            className="text-red-600 hover:underline"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

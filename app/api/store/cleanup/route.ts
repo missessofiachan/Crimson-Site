@@ -20,7 +20,7 @@ async function getAdminSession() {
 }
 
 // POST: Clean up orphaned images (admin only)
-export async function POST(req: Request) {
+export async function POST() {
   try {
     // Check for admin session
     const session = await getAdminSession();

@@ -51,10 +51,42 @@ export default function CartPage() {
     trackBeginCheckout(items, totalPrice);
 
     try {
-      // simulate API call
-      await new Promise((r) => setTimeout(r, 2000));
+      // Create order via API
+      const orderData = {
+        items: items.map((item) => ({
+          _id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          imageUrl: item.imageUrl,
+        })),
+        total: totalPrice,
+        shippingAddress: {
+          street: '123 Default Street', // TODO: Collect from user form
+          city: 'Sydney',
+          state: 'NSW',
+          postalCode: '2000',
+          country: 'Australia',
+        },
+      };
 
-      // Generate a transaction ID
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create order');
+      }
+
+      const result = await response.json();
+      const orderId = result.orderId;
+
+      // Generate a transaction ID for tracking
       const transactionId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
       // Track purchase event
@@ -62,9 +94,10 @@ export default function CartPage() {
 
       clearCart();
       toast.success('Order placed successfully!');
-      router.push('/order-confirmation'); // create this page as desired
-    } catch {
-      toast.error('Checkout failed. Please try again.');
+      router.push(`/order-confirmation?orderId=${orderId}`);
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast.error(error instanceof Error ? error.message : 'Checkout failed. Please try again.');
     } finally {
       setIsCheckingOut(false);
     }

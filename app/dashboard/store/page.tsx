@@ -22,15 +22,14 @@ export default function StoreManagementPage() {
   // Use the protected route hook with admin role requirement
   const { loading: authLoading } = useProtectedRoute({ requiredRole: 'admin' });
   const isAdmin = useIsAdmin();
-  const router = useRouter();
 
   const [items, setItems] = useState<StoreItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchTerm] = useState('');
+  const [selectedCategory] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [cleanupLoading, setCleanupLoading] = useState(false);
 

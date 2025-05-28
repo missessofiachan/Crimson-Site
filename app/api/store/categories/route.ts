@@ -18,7 +18,7 @@ async function getAdminSession() {
 }
 
 // GET: Fetch all categories
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);

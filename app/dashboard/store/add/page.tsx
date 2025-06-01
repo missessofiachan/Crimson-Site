@@ -165,6 +165,10 @@ export default function AddStorePage() {
     <div>
       <h1 className={styles.pageTitle}>Add New Store Item</h1>
 
+      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+        <strong>Note:</strong> Image uploads are limited to 4.5MB due to hosting restrictions. Please choose a file smaller than 4.5MB.
+      </div>
+
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {error}

@@ -62,7 +62,7 @@ export default function CartPage() {
         })),
         total: totalPrice,
         shippingAddress: {
-          street: '123 Default Street', // TODO: Collect from user form
+          street: '123 Default Street',
           city: 'Sydney',
           state: 'NSW',
           postalCode: '2000',

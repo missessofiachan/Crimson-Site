@@ -161,7 +161,7 @@ export default function AboutPage() {
                   implementation.
                 </p>
                 <a
-                  href="https://github.com/yourusername/crimson-ecommerce"
+                  href="https://github.com/missessofiachan/Crimson-Site"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.githubButton}

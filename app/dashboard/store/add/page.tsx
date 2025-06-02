@@ -162,19 +162,17 @@ export default function AddStorePage() {
   }, []);
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Add New Store Item</h1>
-
-      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+    <div className="min-h-screen  flex flex-col items-center justify-start py-8">
+      <h1 className="title text-crimson-dark">Add New Store Item</h1>
+      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4 w-full max-w-2xl">
         <strong>Note:</strong> Image uploads are limited to 4.5MB due to hosting restrictions. Please choose a file smaller than 4.5MB.
       </div>
-
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full max-w-2xl">
           {error}
         </div>
       )}
-      <form onSubmit={handleSubmit} className={addStyles.formContainer}>
+      <form onSubmit={handleSubmit} className={addStyles.formContainer + ' w-full max-w-2xl'}>
         <div className={addStyles.formGroup}>
           <label className={addStyles.label} htmlFor="name">
             Item Name *

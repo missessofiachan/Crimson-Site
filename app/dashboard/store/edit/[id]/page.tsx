@@ -174,16 +174,14 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
   }
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Edit Store Item</h1>
-
+    <div className="min-h-screen bg-zinc-900 flex flex-col items-center justify-start py-8">
+      <h1 className="title text-crimson-dark">Edit Store Item</h1>
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full max-w-2xl">
           {error}
         </div>
       )}
-
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow w-full max-w-2xl">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
             Item Name *

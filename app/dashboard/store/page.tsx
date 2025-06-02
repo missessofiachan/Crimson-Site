@@ -127,10 +127,10 @@ export default function StoreManagementPage() {
   }
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Store Items Management</h1>{' '}
-      <div className="mb-4 flex justify-between items-center">
-        <p className="text-gray-800">Manage your store items below</p>
+    <div className="min-h-screen  flex flex-col items-center justify-start py-8">
+      <h1 className="title text-crimson-dark">Store Items Management</h1>
+      <div className="mb-4 flex justify-between items-center w-full max-w-4xl">
+        <p className="text-crimson-dark font-semibold text-lg">Manage your store items below</p>
         <div className="flex gap-2">
           <button
             onClick={handleCleanupImages}

@@ -7,12 +7,11 @@ export default function DashboardPage() {
   const { data: session } = useSession();
 
   return (
-    <div>
-      {' '}
-      <h1 className={styles.pageTitle}>Dashboard</h1>
-      <p className="text-gray-800">Welcome back, {session?.user?.name}!</p>
+    <div className="min-h-screen  flex flex-col items-center justify-start py-8">
+      <h1 className="title text-crimson-dark">Dashboard</h1>
+      <p className="text-crimson-dark font-semibold text-lg">Welcome back, {session?.user?.name}!</p>
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4 text-gray-800">Quick Navigation</h2>
+        <h2 className="text-xl font-bold mb-4 text-crimson-dark">Quick Navigation</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {session?.user?.role === 'admin' && (

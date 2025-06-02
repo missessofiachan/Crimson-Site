@@ -135,7 +135,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={status === 'saving'}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+                className="bg-crimson-dark text-white px-4 py-2 rounded hover:bg-crimson disabled:opacity-50"
                 aria-busy={status === 'saving'}
               >
                 {status === 'saving' ? 'Saving...' : 'Save Changes'}

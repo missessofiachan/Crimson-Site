@@ -115,11 +115,10 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Category Management</h1>
-      <div className="mb-6">
-        <p className="mb-4 text-gray-800">Manage your product categories below</p>
-
+    <div className="min-h-screen bg-zinc-900 flex flex-col items-center justify-start py-8">
+      <h1 className="title text-crimson-dark">Category Management</h1>
+      <div className="mb-6 w-full max-w-4xl">
+        <p className="mb-4 text-crimson-dark font-semibold text-lg">Manage your product categories below</p>
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Add New Category</h2>
 

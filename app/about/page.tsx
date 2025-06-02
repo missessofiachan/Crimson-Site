@@ -137,8 +137,8 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>Open Source & Community</h2>
           <p className={styles.text}>
             We believe in the power of open source software and community collaboration. Our
-            platform is built with open source technologies, and we're committed to giving back to
-            the developer community.
+            platform is built with open source technologies, and we&#39;re committed to giving back
+            to the developer community.
           </p>
 
           <div className={styles.githubSection}>
@@ -185,8 +185,8 @@ export default function AboutPage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Get in Touch</h2>
           <p className={styles.text}>
-            Have questions about our products or services? We'd love to hear from you. Our team is
-            always ready to help and provide the support you need.
+            Have questions about our products or services? We&apos;d love to hear from you. Our team
+            is always ready to help and provide the support you need.
           </p>
 
           <div className={styles.contactGrid}>

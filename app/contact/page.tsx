@@ -156,7 +156,7 @@ export default function ContactForm() {
       {/* status message */}
       {success && (
         <div className={styles.success} role="status" aria-live="polite">
-          Thanks! We'll be in touch shortly.
+          Thanks! We&apos;ll be in touch shortly.
         </div>
       )}
       {Object.values(errors).some(Boolean) && !success && (

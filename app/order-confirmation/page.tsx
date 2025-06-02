@@ -109,11 +109,11 @@ function OrderConfirmationContent() {
           </div>
         </div>
         <div className={styles.nextSteps}>
-          <h3 className={styles.nextStepsTitle}>What's Next?</h3>
+          <h3 className={styles.nextStepsTitle}>What&apos;s Next?</h3>
           <ul className={styles.stepsList}>
             <li>You will receive an email confirmation shortly</li>
             <li>Your order will be processed within 1-2 business days</li>
-            <li>You'll receive shipping information once your order ships</li>
+            <li>You&apos;ll receive shipping information once your order ships</li>
           </ul>
         </div>
         <div className={styles.actions}>

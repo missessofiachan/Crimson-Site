@@ -16,7 +16,7 @@ export default function Home() {
       </Link>
       <Link
         href="/store"
-        className="mt-6 px-6 py-3 bg-crimson text-white rounded-lg text-lg font-semibold shadow hover:bg-crimson-dark transition-colors duration-200"
+        className="mt-6 px-6 py-3 bg-crimson text-white rounded-lg text-lg font-semibold shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-crimson-dark focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-crimson-dark transform-gpu hover:-translate-y-0.5 hover:scale-105"
       >
         Shop Now
       </Link>

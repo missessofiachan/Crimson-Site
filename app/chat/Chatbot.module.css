@@ -58,13 +58,13 @@
 
 .chatbot-button {
   padding: 10px 24px;
-  background: linear-gradient(90deg, #ff0000 0%, #ff0000 100%);
+  background: var(--crimson);
   color: #fff;
   border: none;
   border-radius: 6px;
   font-weight: 700;
   font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  box-shadow: 0 2px 8px rgba(179, 45, 45, 0.15);
   cursor: pointer;
   transition:
     background 0.2s,
@@ -81,7 +81,7 @@
 }
 
 .chatbot-button:hover:not(:disabled) {
-  background: linear-gradient(90deg, #ff0000 0%, #ff0000 100%);
+  background: var(--crimson-dark);
   transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 16px rgba(210, 25, 25, 0.22);
+  box-shadow: 0 4px 16px rgba(179, 45, 45, 0.22);
 }

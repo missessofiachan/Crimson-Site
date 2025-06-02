@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import clientPromise from '@/lib/mongodb';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://crimson-site.vercel.app'; 
+  const baseUrl = 'https://crimson-site.vercel.app';
   const staticRoutes = [
     '',
     '/about',

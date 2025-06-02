@@ -1,104 +1,103 @@
 @import 'tailwindcss';
 
 :root {
-    /* theme colors */
-    --background: #f5f5f5;
-    --foreground: #171717;
-    --crimson-dark: #7a1b1b;
-    --crimson: #b32d2d;
-    --crimson-light: #f5f5f5;
-    --crimson-accent: #fff;
+  /* theme colors */
+  --background: #f5f5f5;
+  --foreground: #171717;
+  --crimson-dark: #7a1b1b;
+  --crimson: #b32d2d;
+  --crimson-light: #f5f5f5;
+  --crimson-accent: #fff;
 
-    /* layout & utility vars */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --radius: 0.5rem;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --bg-light: #ffffff;
-    --bg-lighter: #f9f9f9;
-    --text-muted: #666;
+  /* layout & utility vars */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --radius: 0.5rem;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --bg-light: #ffffff;
+  --bg-lighter: #f9f9f9;
+  --text-muted: #666;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        /* dark-mode colors */
-        --background: #171717;
-        --foreground: #ededed;
-        --crimson-dark: #b32d2d;
-        --crimson: #f55;
-        --crimson-light: #7a1b1b;
-        --crimson-accent: #fff;
+  :root {
+    /* dark-mode colors */
+    --background: #171717;
+    --foreground: #ededed;
+    --crimson-dark: #b32d2d;
+    --crimson: #f55;
+    --crimson-light: #7a1b1b;
+    --crimson-accent: #fff;
 
-        --bg-light: #1f1f1f;
-        --bg-lighter: #252525;
-        --text-muted: #aaa;
-    }
+    --bg-light: #1f1f1f;
+    --bg-lighter: #252525;
+    --text-muted: #aaa;
+  }
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: Calibri, Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Calibri, Arial, Helvetica, sans-serif;
 }
 
 .bg-crimson {
-    background-color: var(--crimson);
+  background-color: var(--crimson);
 }
 
 .bg-crimson-dark {
-    background-color: var(--crimson-dark);
+  background-color: var(--crimson-dark);
 }
 
 .bg-crimson-light {
-    background-color: var(--crimson-light);
+  background-color: var(--crimson-light);
 }
 
 .text-crimson {
-    color: var(--crimson);
+  color: var(--crimson);
 }
 
 .text-crimson-dark {
-    color: var(--crimson-dark);
+  color: var(--crimson-dark);
 }
 
 .text-crimson-light {
-    color: var(--crimson-light);
+  color: var(--crimson-light);
 }
 
 .border-crimson {
-    border-color: var(--crimson);
+  border-color: var(--crimson);
 }
 
-
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 .content {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: var(--bg-light);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 2rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--bg-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem;
 }
 
 .title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--crimson-dark);
-    text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--crimson-dark);
+  text-align: center;
 }
 
 .subtitle {
-    font-size: 1.25rem;
-    opacity: 0.95;
-    line-height: 1.6;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 2rem;
+  font-size: 1.25rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 2rem;
 }

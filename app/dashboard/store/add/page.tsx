@@ -165,7 +165,8 @@ export default function AddStorePage() {
     <div className="min-h-screen  flex flex-col items-center justify-start py-8">
       <h1 className="title text-crimson-dark">Add New Store Item</h1>
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4 w-full max-w-2xl">
-        <strong>Note:</strong> Image uploads are limited to 4.5MB due to hosting restrictions. Please choose a file smaller than 4.5MB.
+        <strong>Note:</strong> Image uploads are limited to 4.5MB due to hosting restrictions.
+        Please choose a file smaller than 4.5MB.
       </div>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full max-w-2xl">

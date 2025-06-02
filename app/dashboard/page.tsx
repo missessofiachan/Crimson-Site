@@ -9,7 +9,9 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen  flex flex-col items-center justify-start py-8">
       <h1 className="title text-crimson-dark">Dashboard</h1>
-      <p className="text-crimson-dark font-semibold text-lg">Welcome back, {session?.user?.name}!</p>
+      <p className="text-crimson-dark font-semibold text-lg">
+        Welcome back, {session?.user?.name}!
+      </p>
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4 text-crimson-dark">Quick Navigation</h2>
 

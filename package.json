@@ -40,6 +40,10 @@
     "zod": "^3.25.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@next/bundle-analyzer": "^15.3.3",
     "@next/eslint-plugin-next": "^15.3.3",
@@ -53,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
     "autoprefixer": "^10.4.21",
+    "babel-loader": "^10.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",

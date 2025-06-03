@@ -1,6 +1,14 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
 import { trackAddToCart, trackRemoveFromCart } from '@/lib/gtag';
 
 export interface CartItem {
@@ -25,43 +33,51 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  // Set client-side flag to prevent hydration issues
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Load cart from localStorage when component mounts
   useEffect(() => {
+    if (!isClient) return;
+
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       try {
         const parsedCart = JSON.parse(savedCart);
         setItems(parsedCart);
-      } catch (error) {
-        console.error('Failed to parse cart from localStorage', error);
+      } catch {
+        // Silently handle localStorage parse errors
       }
     }
-  }, []);
+  }, [isClient]);
 
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    if (items.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(items));
-    }
-
-    // Calculate totals
+  // Memoized totals calculation
+  const { totalItems, totalPrice } = useMemo(() => {
     const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
     const price = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-    setTotalItems(itemCount);
-    setTotalPrice(price);
+    return { totalItems: itemCount, totalPrice: price };
   }, [items]);
 
-  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
+  // Save to localStorage with debouncing
+  useEffect(() => {
+    if (!isClient || items.length === 0) return;
+
+    const timeoutId = setTimeout(() => {
+      localStorage.setItem('cart', JSON.stringify(items));
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [items, isClient]);
+
+  const addToCart = useCallback((product: Omit<CartItem, 'quantity'>) => {
     setItems((prevItems) => {
-      // Check if item is already in cart
       const existingItemIndex = prevItems.findIndex((item) => item._id === product._id);
 
       if (existingItemIndex >= 0) {
-        // Item exists, increment quantity
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
@@ -69,44 +85,42 @@ export function CartProvider({ children }: { children: ReactNode }) {
         };
         return updatedItems;
       } else {
-        // Item doesn't exist, add to cart with quantity 1
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
 
-    // Track add to cart event
     trackAddToCart(product);
-  };
+  }, []);
 
-  const removeFromCart = (itemId: string) => {
-    // Find the item being removed for tracking
-    const itemToRemove = items.find((item) => item._id === itemId);
+  const removeFromCart = useCallback(
+    (itemId: string) => {
+      const itemToRemove = items.find((item) => item._id === itemId);
 
-    setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
+      setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
 
-    // Track remove from cart event
-    if (itemToRemove) {
-      trackRemoveFromCart(itemToRemove);
-    }
+      if (itemToRemove) {
+        trackRemoveFromCart(itemToRemove);
+      }
 
-    // If cart is now empty, remove from localStorage
-    if (items.length === 1) {
-      localStorage.removeItem('cart');
-    }
-  };
+      if (items.length === 1) {
+        localStorage.removeItem('cart');
+      }
+    },
+    [items]
+  );
 
-  const updateQuantity = (itemId: string, quantity: number) => {
+  const updateQuantity = useCallback((itemId: string, quantity: number) => {
     if (quantity < 1) return;
 
     setItems((prevItems) =>
       prevItems.map((item) => (item._id === itemId ? { ...item, quantity } : item))
     );
-  };
+  }, []);
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setItems([]);
     localStorage.removeItem('cart');
-  };
+  }, []);
 
   return (
     <CartContext.Provider

@@ -1,3 +1,22 @@
+/* Critical CSS optimizations for LCP performance */
+html {
+  font-display: swap;
+  text-rendering: optimizeSpeed;
+}
+
+/* Optimize the LCP element specifically */
+h1 {
+  font-synthesis: none;
+  text-rendering: optimizeSpeed;
+  contain: layout;
+}
+
+/* Reduce CLS by setting initial font metrics */
+body {
+  font-display: swap;
+  text-rendering: optimizeSpeed;
+}
+
 @import 'tailwindcss';
 
 :root {

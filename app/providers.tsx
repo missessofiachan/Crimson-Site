@@ -1,13 +1,24 @@
 'use client';
 
 import { SessionProvider } from 'next-auth/react';
-import { ReactNode } from 'react';
-import { CartProvider } from '@/lib/cart';
+import { ReactNode, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+// Lazy load cart provider to reduce initial bundle
+const LazyCartProvider = dynamic(
+  () => import('@/lib/cart').then((mod) => ({ default: mod.CartProvider })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
-      <CartProvider>{children}</CartProvider>
+      <Suspense fallback={null}>
+        <LazyCartProvider>{children}</LazyCartProvider>
+      </Suspense>
     </SessionProvider>
   );
 }

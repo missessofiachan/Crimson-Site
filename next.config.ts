@@ -7,13 +7,23 @@ const nextConfig: NextConfig = {
     unoptimized: process.env.NODE_ENV === 'development',
   },
   output: 'standalone',
+
+  // Enhanced performance optimizations
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['react-icons', '@heroicons/react', 'next-auth', 'react-hot-toast'],
+    optimizeServerReact: true,
+    webpackBuildWorker: true,
   },
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
+  // Enable aggressive optimization for better performance
+  poweredByHeader: false,
+  reactStrictMode: true,
+
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -23,10 +33,13 @@ const nextConfig: NextConfig = {
         tls: false,
       };
 
+      // Enhanced chunk optimization for reduced critical path
       config.optimization = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
+          minSize: 20000,
+          maxSize: 244000,
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
@@ -52,8 +65,18 @@ const nextConfig: NextConfig = {
               priority: 20,
               chunks: 'all',
             },
+            // Group React components for better caching
+            components: {
+              test: /[\\/]components[\\/]/,
+              name: 'components',
+              priority: 15,
+              chunks: 'all',
+            },
           },
         },
+        // Enable better tree shaking
+        usedExports: true,
+        sideEffects: false,
       };
     }
 

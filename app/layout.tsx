@@ -7,6 +7,8 @@ import ToastProvider from './toast-provider';
 import GoogleAnalyticsScripts from '../components/GoogleAnalyticsScripts';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import CriticalResourceHints from '../components/CriticalResourceHints';
+import ServiceWorkerRegistration from '../components/ServiceWorkerRegistration';
+import WebVitalsMonitor from '../components/WebVitalsMonitor';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -49,6 +51,8 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <GoogleAnalytics />
+        <ServiceWorkerRegistration />
+        <WebVitalsMonitor />
         <Providers>
           <Navbar />
           <main className="pt-24">{children}</main>

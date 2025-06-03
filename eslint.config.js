@@ -54,12 +54,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: [
-      'node_modules/',
-      '.next/',
-      'out/',
-      'coverage/',
-      '*.log'
-    ],
+    ignores: ['node_modules/', '.next/', 'out/', 'coverage/', '*.log'],
   }
 );

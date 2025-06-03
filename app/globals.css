@@ -28,10 +28,13 @@ h1 {
 body {
   font-display: swap;
   text-rendering: optimizeSpeed;
-  font-family: 'Geist-Sans', var(--font-geist-sans), system-ui, sans-serif;
+  font-family: 'Geist', 'Geist-Sans', var(--font-geist-sans), system-ui, sans-serif;
 }
 
 @import 'tailwindcss';
+@import '@fontsource/geist/400.css';
+@import '@fontsource/geist/500.css';
+@import '@fontsource/geist/700.css';
 
 :root {
   /* theme colors */

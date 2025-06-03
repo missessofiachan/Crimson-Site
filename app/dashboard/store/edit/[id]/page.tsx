@@ -62,8 +62,12 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
         if (item.imageUrl) {
           setImagePreview(item.imageUrl);
         }
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setFetchLoading(false);
       }
@@ -163,8 +167,12 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
       // Redirect on success
       router.push('/dashboard/store');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }

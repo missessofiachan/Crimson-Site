@@ -38,8 +38,12 @@ export default function CategoriesPage() {
 
         const data = await response.json();
         setCategories(data.categories);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setLoading(false);
       }
@@ -79,8 +83,12 @@ export default function CategoriesPage() {
       // Reset form
       setNewCategory({ name: '', description: '' });
       toast.success('Category added successfully');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
       toast.error('Failed to add category');
     } finally {
       setIsAddingCategory(false);
@@ -105,8 +113,12 @@ export default function CategoriesPage() {
         // Remove deleted category from state
         setCategories(categories.filter((category) => category._id !== id));
         toast.success(`Category "${name}" deleted successfully`);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
         toast.error('Failed to delete category');
       }
     }

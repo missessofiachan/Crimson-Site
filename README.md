@@ -58,7 +58,6 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [create-next-a
   - `contact/` - Contact form page and styles
   - `chat/` - Chatbot page and styles
   - `cat-fact/` - Cat Fact generator
-  - `Todo/` - Todo list (with MongoDB integration)
   - `gallery/` - Gallery page
   - `store/` - Public store page to display items
   - `dashboard/` - Admin dashboard with store management

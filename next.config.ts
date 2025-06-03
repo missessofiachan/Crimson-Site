@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
   // Enhanced performance optimizations
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['react-icons', '@heroicons/react', 'next-auth', 'react-hot-toast'],
     optimizeServerReact: true,
     webpackBuildWorker: true,
   },
@@ -23,7 +22,6 @@ const nextConfig: NextConfig = {
   // Enable aggressive optimization for better performance
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
 
   // Target modern browsers to eliminate legacy polyfills
   transpilePackages: [],
@@ -92,9 +90,6 @@ const nextConfig: NextConfig = {
             },
           },
         },
-        // Enable better tree shaking
-        usedExports: true,
-        sideEffects: false,
       };
     }
 

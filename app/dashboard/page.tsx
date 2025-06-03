@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import styles from './Dashboard.module.css';
 
 export default function DashboardPage() {
   const { data: session } = useSession();

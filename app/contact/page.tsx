@@ -137,8 +137,12 @@ export default function ContactForm() {
         setSuccess(true);
         toast.success('Message sent!');
         setData(initialData);
-      } catch (err: any) {
-        toast.error(err?.message || 'Submission failed');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        } else {
+          toast.error('Submission failed');
+        }
       } finally {
         setLoading(false);
       }

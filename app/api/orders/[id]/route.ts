@@ -55,7 +55,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     const { status, trackingNumber, estimatedDelivery, notes } = updateData;
 
     // Build update object
-    const updateObj: any = {
+    const updateObj: Partial<UpdateOrderData> & { updatedAt: Date } = {
       updatedAt: new Date(),
     };
 

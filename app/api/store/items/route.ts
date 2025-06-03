@@ -32,7 +32,7 @@ export async function GET(req: Request) {
     const category = url.searchParams.get('category') || '';
 
     // Build query
-    let query: any = {};
+    let query: Record<string, unknown> = {};
 
     // Add search filter
     if (search) {

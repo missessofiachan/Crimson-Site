@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from '../../Dashboard.module.css';
-import { useProtectedRoute, useIsAdmin } from '@/lib/auth';
+import { useProtectedRoute } from '@/lib/auth';
 import { toast } from 'react-hot-toast';
 
 interface Category {

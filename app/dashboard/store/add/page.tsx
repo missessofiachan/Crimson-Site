@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import styles from '../../Dashboard.module.css';
 import addStyles from './AddStore.module.css';
 import { ProgressBar } from './ProgressBar';
 
@@ -131,8 +130,12 @@ export default function AddStorePage() {
       // Redirect on success
       router.push('/dashboard/store');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setLoading(false);
     }

@@ -35,8 +35,12 @@ export default function ProfilePage() {
         if (!res.ok) throw new Error('Failed to fetch orders');
         const data = await res.json();
         setOrders(data.orders || []);
-      } catch (err: any) {
-        setOrdersError(err.message || 'Could not load orders');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setOrdersError(err.message);
+        } else {
+          setOrdersError('Could not load orders');
+        }
       } finally {
         setOrdersLoading(false);
       }
@@ -73,8 +77,12 @@ export default function ProfilePage() {
         setStatus('success');
         setIsEditing(false);
         router.refresh();
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Something went wrong');
+        }
         setStatus('error');
       }
     },

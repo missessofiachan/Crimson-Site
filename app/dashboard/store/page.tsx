@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from '../Dashboard.module.css';
 import { useProtectedRoute, useIsAdmin } from '@/lib/auth';
+import { PlusIcon, TrashIcon, PencilIcon } from '../../../components/Icons';
 
 interface StoreItem {
   _id: string;
@@ -66,8 +66,8 @@ export default function StoreManagementPage() {
           );
           setCategories(uniqueCategories as string[]);
         }
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);
       }
@@ -87,8 +87,8 @@ export default function StoreManagementPage() {
           throw new Error('Failed to delete item');
         } // Remove deleted item from state
         setItems(items.filter((item) => item._id !== id));
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
       }
     }
   };
@@ -113,9 +113,11 @@ export default function StoreManagementPage() {
         alert(
           `Cleanup completed!\nDeleted: ${data.summary.deletedCount} files\nErrors: ${data.summary.errorCount}`
         );
-      } catch (err: any) {
-        setError(err.message);
-        alert('Failed to cleanup images: ' + err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        alert(
+          'Failed to cleanup images: ' + (err instanceof Error ? err.message : 'Unknown error')
+        );
       } finally {
         setCleanupLoading(false);
       }
@@ -141,9 +143,9 @@ export default function StoreManagementPage() {
           </button>
           <Link
             href="/dashboard/store/add"
-            className="bg-crimson-dark text-white px-4 py-2 rounded-md hover:bg-crimson"
+            className="bg-crimson-dark text-white px-4 py-2 rounded-md hover:bg-crimson flex items-center gap-1"
           >
-            + Add New Item
+            <PlusIcon className="w-4 h-4" /> + Add New Item
           </Link>
         </div>
       </div>
@@ -205,15 +207,15 @@ export default function StoreManagementPage() {
                         <div className="flex space-x-2">
                           <Link
                             href={`/dashboard/store/edit/${item._id}`}
-                            className="text-blue-600 hover:underline"
+                            className="text-blue-600 hover:underline flex items-center gap-1"
                           >
-                            Edit
+                            <PencilIcon className="w-4 h-4" /> Edit
                           </Link>
                           <button
                             onClick={() => handleDelete(item._id)}
-                            className="text-red-600 hover:underline"
+                            className="text-red-600 hover:underline flex items-center gap-1"
                           >
-                            Delete
+                            <TrashIcon className="w-4 h-4" /> Delete
                           </button>
                         </div>
                       </td>

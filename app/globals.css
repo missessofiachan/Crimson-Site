@@ -1,15 +1,6 @@
 /* Critical CSS optimizations for LCP performance and reduced dependency chains */
 
 /* Preload and optimize font rendering immediately */
-@font-face {
-  font-family: 'Geist-Sans';
-  src: url('https://fonts.gstatic.com/s/geist/v1/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2')
-    format('woff2');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
-}
-
 html {
   font-display: swap;
   text-rendering: optimizeSpeed;
@@ -28,7 +19,7 @@ h1 {
 body {
   font-display: swap;
   text-rendering: optimizeSpeed;
-  font-family: 'Geist', 'Geist-Sans', var(--font-geist-sans), system-ui, sans-serif;
+  font-family: 'Geist', var(--font-geist-sans), system-ui, sans-serif;
 }
 
 @import 'tailwindcss';

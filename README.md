@@ -74,13 +74,39 @@ The Contact Us page (`/contact`) features a modern, accessible form with validat
 
 ## Environment Variables
 
-Some features (like chat and todo) require environment variables. Create a `.env.local` file in the project root and add:
+Create a `.env.local` file in the project root and configure the following environment variables based on the features you want to use:
 
-- `OPENROUTER_API_KEY` for chat API
-- `MONGODB_URI` for MongoDB connection string
-- `MONGODB_DB` for your database name
-- `NEXTAUTH_SECRET` for NextAuth.js
-- `NEXTAUTH_URL` for your deployment URL
+### Required for Core Functionality
+
+- `MONGODB_URI` - MongoDB connection string (required for database operations)
+- `MONGODB_DB` - Your database name (required for all database collections)
+- `NEXTAUTH_SECRET` - A random string for NextAuth.js session encryption (required for authentication)
+- `NEXTAUTH_URL` - Your deployment URL (required for NextAuth.js, e.g., `http://localhost:3000` for development)
+
+### Feature-Specific Environment Variables
+
+#### Chat Feature
+
+- `OPENROUTER_API_KEY` - API key for OpenRouter/Meta Llama chat functionality
+
+#### Image Upload & Management
+
+- `CLOUDINARY_CLOUD_NAME` - Your Cloudinary cloud name (required for image uploads in store management)
+- `CLOUDINARY_API_KEY` - Your Cloudinary API key (required for image uploads)
+- `CLOUDINARY_API_SECRET` - Your Cloudinary API secret (required for image uploads)
+
+#### Analytics (Optional)
+
+- `NEXT_PUBLIC_GA_ID` - Google Analytics tracking ID (optional, defaults to 'G-SCFSK4S8DV')
+
+### Admin Setup
+
+The application includes hardcoded setup keys for initial admin account creation:
+
+- Admin setup page uses setup key: `crimson-initial-setup`
+- Admin creation API uses secret key: `crimson-admin-secret`
+
+> **Security Note**: In production, consider replacing hardcoded setup keys with environment variables for better security.
 
 ## Global Styles & Theming
 
@@ -102,10 +128,22 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 ### Deployment Checklist
 
 1. **Environment Variables**: Set all required environment variables in the Vercel dashboard:
+
+   **Core Requirements:**
+
    - `MONGODB_URI`: Your MongoDB connection string
    - `MONGODB_DB`: Your database name
    - `NEXTAUTH_SECRET`: A random string for NextAuth.js
    - `NEXTAUTH_URL`: Your deployment URL
+
+   **Feature-Specific (as needed):**
+
+   - `OPENROUTER_API_KEY`: For chat functionality
+   - `CLOUDINARY_CLOUD_NAME`: For image uploads
+   - `CLOUDINARY_API_KEY`: For image uploads
+   - `CLOUDINARY_API_SECRET`: For image uploads
+   - `NEXT_PUBLIC_GA_ID`: For Google Analytics (optional)
+
 2. **Node.js Version**: Use Node.js 18.x or later (required for Next.js 15.x)
    - You can specify this in Vercel's dashboard under Project Settings > General > Node.js Version
 3. **Punycode Warning**: Ignore any punycode deprecation warnings during build; they come from a dependency.

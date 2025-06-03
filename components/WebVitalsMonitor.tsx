@@ -63,7 +63,7 @@ export default function WebVitalsMonitor() {
         observer.observe({
           entryTypes: ['navigation', 'paint', 'resource', 'largest-contentful-paint'],
         });
-      } catch (e) {
+      } catch {
         // Fallback for browsers that don't support all entry types
         observer.observe({ entryTypes: ['navigation', 'paint', 'resource'] });
       }

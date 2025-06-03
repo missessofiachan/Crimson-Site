@@ -6,10 +6,16 @@ export default function CriticalResourceHints() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
+      {/* Google Fonts stylesheet - ensure preconnect is present */}
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+
       {/* Preload critical fonts to avoid render blocking */}
       <link
         rel="preload"
-        href="https://fonts.gstatic.com/s/geist/v1/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2"
+        href="https://github.com/vercel/geist-font/blob/main/fonts/web/Geist-Regular.woff2?raw=true"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"

@@ -28,6 +28,7 @@ export default tseslint.config(
     },
     plugins: {
       react: reactPlugin,
+      '@next/next': nextPlugin,
     },
     settings: {
       react: {
@@ -38,7 +39,6 @@ export default tseslint.config(
   {
     files: ['**/*.{ts,tsx}'],
     plugins: {
-      '@next/next': nextPlugin,
       prettier: prettierPlugin,
     },
     rules: {
@@ -54,6 +54,12 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['.next/', 'node_modules/', 'public/'],
+    ignores: [
+      'node_modules/',
+      '.next/',
+      'out/',
+      'coverage/',
+      '*.log'
+    ],
   }
 );

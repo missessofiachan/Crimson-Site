@@ -3,6 +3,7 @@
 import { signOut } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './Dashboard.module.css';
 import { useProtectedRoute, useIsAdmin } from '@/lib/auth';
 
@@ -11,6 +12,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const router = useRouter();
   const isAdmin = useIsAdmin();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   if (loading) {
     return <div className="text-gray-800 p-4">Loading...</div>;
   }
@@ -21,8 +24,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const handleLogout = async () => {
-    await signOut({ redirect: false });
-    router.push('/');
+    setIsLoggingOut(true);
+    try {
+      await signOut({ redirect: false });
+      router.push('/');
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -85,8 +93,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className={styles.userInfo}>
           <div className={styles.userName}>{session?.user?.name}</div>
           <div className={styles.userRole}>{isAdmin ? 'Administrator' : 'User'}</div>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Logout
+          <button className={styles.logoutButton} onClick={handleLogout} disabled={isLoggingOut}>
+            {isLoggingOut ? 'Logging out...' : 'Logout'}
           </button>
         </div>
       </aside>

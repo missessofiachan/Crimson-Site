@@ -12,6 +12,7 @@ export default function Navbar() {
   const { totalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const pathname = usePathname();
 
   // Handle scroll effect for navbar appearance
@@ -33,6 +34,15 @@ export default function Navbar() {
   const navLinkClass = (path: string) => {
     const isActive = pathname === path;
     return `${styles.navLink} ${isActive ? styles.navLinkActive : styles.navLinkInactive}`;
+  };
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut();
+    } finally {
+      setIsSigningOut(false);
+    }
   };
 
   return (
@@ -170,8 +180,12 @@ export default function Navbar() {
                 <Link href="/dashboard/profile" className={styles.dropdownLink}>
                   Profile
                 </Link>
-                <button onClick={() => signOut()} className={styles.dropdownSignOut}>
-                  Sign out
+                <button
+                  onClick={handleSignOut}
+                  className={styles.dropdownSignOut}
+                  disabled={isSigningOut}
+                >
+                  {isSigningOut ? 'Signing out...' : 'Sign out'}
                 </button>
               </div>
             </li>
@@ -262,7 +276,11 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <button onClick={() => signOut()} className={styles.mobileSignOut}>
+                    <button
+                      onClick={handleSignOut}
+                      className={styles.mobileSignOut}
+                      disabled={isSigningOut}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -277,7 +295,7 @@ export default function Navbar() {
                           d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h7.5"
                         />
                       </svg>
-                      Sign out
+                      {isSigningOut ? 'Signing out...' : 'Sign out'}
                     </button>
                   </li>
                 </>

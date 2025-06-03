@@ -27,8 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleAnalyticsScripts />
         <CriticalResourceHints />
+        {/* Delay Google Analytics loading until browser is idle */}
+        <GoogleAnalyticsScripts />
       </head>
       <body className="antialiased">
         <Providers>

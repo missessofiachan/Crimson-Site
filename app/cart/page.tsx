@@ -96,7 +96,6 @@ export default function CartPage() {
       toast.success('Order placed successfully!');
       router.push(`/order-confirmation?orderId=${orderId}`);
     } catch (error) {
-      console.error('Checkout error:', error);
       toast.error(error instanceof Error ? error.message : 'Checkout failed. Please try again.');
     } finally {
       setIsCheckingOut(false);
@@ -156,11 +155,14 @@ export default function CartPage() {
                   {item.imageUrl ? (
                     <Image
                       src={item.imageUrl}
-                      alt={item.name}
+                      alt={`${item.name} product image`}
                       width={80}
                       height={80}
                       style={{ objectFit: 'cover' }}
                       className={styles.productImage}
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                     />
                   ) : (
                     <div className={styles.noImage}>No image</div>

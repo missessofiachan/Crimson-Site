@@ -271,11 +271,12 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
               <div className="relative h-40 w-40">
                 <Image
                   src={imagePreview}
-                  alt="Preview"
+                  alt="Product image preview"
                   width={160}
                   height={160}
                   style={{ objectFit: 'cover' }}
                   className="rounded"
+                  loading="lazy"
                 />
               </div>
             </div>

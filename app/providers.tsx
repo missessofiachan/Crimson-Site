@@ -3,6 +3,7 @@
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode, Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import ToastProvider from './toast-provider';
 
 // Lazy load cart provider to reduce initial bundle
 const LazyCartProvider = dynamic(
@@ -16,6 +17,7 @@ const LazyCartProvider = dynamic(
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
+      <ToastProvider />
       <Suspense fallback={null}>
         <LazyCartProvider>{children}</LazyCartProvider>
       </Suspense>

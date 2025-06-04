@@ -1,20 +1,23 @@
 'use client';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {}, [error]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <h1 className="text-6xl font-bold text-red-700 mb-4">500</h1>
-      <h2 className="text-2xl font-semibold mb-2">Something went wrong</h2>
-      <p className="text-gray-600 mb-6">An unexpected error occurred. Please try again later.</p>
+    <main className="max-w-2xl mx-auto p-8 text-center bg-gray-100 text-gray-900 rounded-xl shadow">
+      <h1 className="text-4xl font-bold mb-4 text-red-700">500 - Something Went Wrong</h1>
+      <p className="mb-4 text-gray-800">An unexpected error occurred. Please try again later.</p>
       <button
         onClick={() => reset()}
-        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 mr-4"
       >
         Try Again
       </button>
-    </div>
+      <Link href="/" className="text-primary underline">
+        Return Home
+      </Link>
+    </main>
   );
 }

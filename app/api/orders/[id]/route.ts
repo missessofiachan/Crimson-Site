@@ -31,8 +31,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     }
 
     return NextResponse.json({ order });
-  } catch (error) {
-    console.error('Error fetching order:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch order' }, { status: 500 });
   }
 }
@@ -96,8 +95,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       message: 'Order updated successfully',
       order: updatedOrder,
     });
-  } catch (error) {
-    console.error('Error updating order:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to update order' }, { status: 500 });
   }
 }
@@ -142,8 +140,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
       message: 'Order deleted successfully',
       deletedBy: 'admin',
     });
-  } catch (error) {
-    console.error('Error deleting order:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to delete order' }, { status: 500 });
   }
 }

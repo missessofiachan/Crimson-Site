@@ -1,9 +1,10 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
 import clientPromise from '@/lib/mongodb';
+import type { NextAuthOptions } from 'next-auth';
 
 // Exports  authOptions for reuse across the application
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -44,16 +45,16 @@ export const authOptions = {
     signIn: '/login',
   },
   callbacks: {
-    async session({ session, token }: { session: any; token: any }) {
+    async session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.sub;
-        session.user.role = token.role;
+        session.user.id = token.sub || '';
+        session.user.role = token.role || 'user';
       }
       return session;
     },
-    async jwt({ token, user }: { token: any; user?: any }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
+        token.role = user.role || 'user';
       }
       return token;
     },

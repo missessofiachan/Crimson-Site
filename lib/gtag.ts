@@ -32,7 +32,15 @@ export const event = ({
 };
 
 // E-commerce specific events
-export const trackPurchase = (transactionId: string, items: any[], value: number) => {
+export interface GtagItem {
+  _id: string;
+  name: string;
+  category?: string;
+  quantity?: number;
+  price: number;
+}
+
+export const trackPurchase = (transactionId: string, items: GtagItem[], value: number) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'purchase', {
       transaction_id: transactionId,
@@ -49,7 +57,7 @@ export const trackPurchase = (transactionId: string, items: any[], value: number
   }
 };
 
-export const trackAddToCart = (item: any) => {
+export const trackAddToCart = (item: GtagItem) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'add_to_cart', {
       currency: 'AUD',
@@ -67,7 +75,7 @@ export const trackAddToCart = (item: any) => {
   }
 };
 
-export const trackRemoveFromCart = (item: any) => {
+export const trackRemoveFromCart = (item: GtagItem & { quantity: number }) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'remove_from_cart', {
       currency: 'AUD',
@@ -85,7 +93,7 @@ export const trackRemoveFromCart = (item: any) => {
   }
 };
 
-export const trackViewItem = (item: any) => {
+export const trackViewItem = (item: GtagItem) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'view_item', {
       currency: 'AUD',
@@ -110,7 +118,7 @@ export const trackSearch = (searchTerm: string) => {
   }
 };
 
-export const trackBeginCheckout = (items: any[], value: number) => {
+export const trackBeginCheckout = (items: GtagItem[], value: number) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'begin_checkout', {
       currency: 'AUD',

@@ -85,6 +85,11 @@
   cursor: not-allowed;
 }
 
+.submitButton.loading {
+  background-color: #e53e3e !important; /* Red */
+  color: #fff;
+}
+
 .error {
   color: #e53e3e;
   margin-top: 0.5rem;

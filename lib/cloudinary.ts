@@ -35,9 +35,8 @@ export async function uploadToCloudinary(
         )
         .end(buffer);
     });
-  } catch (error) {
-    console.error('Error uploading to Cloudinary:', error);
-    throw error;
+  } catch {
+    throw new Error('Error uploading to Cloudinary');
   }
 }
 
@@ -58,8 +57,7 @@ export async function deleteFromCloudinary(imageUrl: string): Promise<boolean> {
 
     const result = await cloudinary.uploader.destroy(publicId);
     return result.result === 'ok';
-  } catch (error) {
-    console.error('Error deleting from Cloudinary:', error);
+  } catch {
     return false;
   }
 }

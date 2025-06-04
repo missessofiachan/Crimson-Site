@@ -8,22 +8,22 @@ export default function ServiceWorkerRegistration() {
       navigator.serviceWorker
         .register('/sw.js')
         .then((registration) => {
-          console.log('Service Worker registered successfully:', registration);
+          // Removed console.log to fix lint warning
 
           // Check for updates periodically
           setInterval(() => {
             registration.update();
           }, 60000); // Check every minute
         })
-        .catch((error) => {
-          console.log('Service Worker registration failed:', error);
+        .catch(() => {
+          // Removed console.log to fix lint warning
         });
 
       // Listen for messages from the service worker
       navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data && event.data.type === 'CACHE_UPDATED') {
           // Optionally notify user of updates
-          console.log('Cache updated with new content');
+          // Removed console.log to fix lint warning
         }
       });
     }

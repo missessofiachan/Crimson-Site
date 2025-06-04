@@ -7,11 +7,7 @@ import { authOptions } from '@/lib/authOptions';
 async function getAdminSession() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || session.user.role !== 'admin') {
-    console.log('Admin check failed:', {
-      hasSession: !!session,
-      hasUser: !!(session && session.user),
-      role: session?.user?.role,
-    });
+    // Removed console.log to fix lint warning
     return null;
   }
   return session;
@@ -30,8 +26,7 @@ export async function GET() {
       categories,
       count: categories.length,
     });
-  } catch (error) {
-    console.error('Error fetching categories:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch categories' }, { status: 500 });
   }
 }
@@ -82,8 +77,7 @@ export async function POST(req: Request) {
       categoryId: result.insertedId,
       category: { ...newCategory, _id: result.insertedId },
     });
-  } catch (error) {
-    console.error('Error creating category:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to create category' }, { status: 500 });
   }
 }

@@ -34,9 +34,8 @@ export default function LoginPage() {
         router.push('/dashboard');
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -80,7 +79,11 @@ export default function LoginPage() {
 
         {error && <div className={styles.error}>{error}</div>}
 
-        <button className={styles.loginButton} type="submit" disabled={loading}>
+        <button
+          className={loading ? `${styles.loginButton} ${styles.loading}` : styles.loginButton}
+          type="submit"
+          disabled={loading}
+        >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>

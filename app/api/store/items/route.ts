@@ -8,11 +8,6 @@ async function getAdminSession() {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user || session.user.role !== 'admin') {
-    console.log('Admin check failed:', {
-      hasSession: !!session,
-      hasUser: !!(session && session.user),
-      role: session?.user?.role,
-    });
     return null;
   }
   return session;
@@ -66,8 +61,7 @@ export async function GET(req: Request) {
       totalPages: Math.ceil(total / limit),
       currentPage: page,
     });
-  } catch (error) {
-    console.error('Error fetching store items:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch store items' }, { status: 500 });
   }
 }
@@ -112,8 +106,7 @@ export async function POST(req: Request) {
       itemId: result.insertedId,
       item: newItem,
     });
-  } catch (error) {
-    console.error('Error creating store item:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to create store item' }, { status: 500 });
   }
 }

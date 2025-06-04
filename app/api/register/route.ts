@@ -37,8 +37,7 @@ export async function POST(req: Request) {
       success: true,
       userId: result.insertedId,
     });
-  } catch (error) {
-    console.error('Registration error:', error);
+  } catch {
     return NextResponse.json({ error: 'An error occurred during registration' }, { status: 500 });
   }
 }

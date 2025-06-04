@@ -78,6 +78,11 @@
   cursor: not-allowed;
 }
 
+.loginButton.loading {
+  background-color: #e53e3e; 
+  color: #fff;
+}
+
 .error {
   color: #e53e3e;
   margin-top: 0.5rem;

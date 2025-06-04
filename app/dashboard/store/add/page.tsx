@@ -77,8 +77,7 @@ export default function AddStorePage() {
       const data = await response.json();
       setUploadProgress(100);
       return data.fileUrl;
-    } catch (error) {
-      console.error('Upload error:', error);
+    } catch {
       setError('Error uploading image. Please try again.');
       setUploadProgress(0);
       return null;
@@ -154,8 +153,8 @@ export default function AddStorePage() {
 
         const data = await response.json();
         setCategories(data.categories);
-      } catch (err) {
-        console.error('Error fetching categories:', err);
+      } catch {
+        setError('Failed to fetch categories');
       } finally {
         setLoadingCategories(false);
       }

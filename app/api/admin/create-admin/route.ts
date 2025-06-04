@@ -7,8 +7,9 @@ export async function POST(req: Request) {
   try {
     const { name, email, password, secretKey } = await req.json();
 
-    // Check for secret key - simple protection mechanism
-    if (secretKey !== 'crimson-admin-secret') {
+    // Check for secret key using environment variable for security
+    const validSecretKey = process.env.ADMIN_SECRET_KEY || 'crimson-admin-secret';
+    if (secretKey !== validSecretKey) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -43,8 +44,7 @@ export async function POST(req: Request) {
       success: true,
       userId: result.insertedId,
     });
-  } catch (error) {
-    console.error('Admin creation error:', error);
+  } catch {
     return NextResponse.json({ error: 'An error occurred during admin creation' }, { status: 500 });
   }
 }

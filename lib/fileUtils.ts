@@ -12,12 +12,8 @@ export async function deleteImageFile(imageUrl: string): Promise<boolean> {
 
   try {
     const result = await deleteFromCloudinary(imageUrl);
-    if (result) {
-      console.log(`Successfully deleted image: ${imageUrl}`);
-    }
     return result;
-  } catch (error) {
-    console.error(`Failed to delete image ${imageUrl}:`, error);
+  } catch {
     return false;
   }
 }
@@ -52,19 +48,15 @@ export async function deleteImageFiles(
  * @returns Promise<{ deleted: string[], errors: string[] }> - Returns arrays of deleted files and errors
  */
 export async function cleanupOrphanedImages(
-  _db: any
+  _db: unknown // Specify as unknown instead of any
 ): Promise<{ deleted: string[]; errors: string[] }> {
   const deleted: string[] = [];
   const errors: string[] = [];
 
   try {
-    console.log('Note: Orphaned image cleanup for Cloudinary requires manual review');
-    console.log('Consider implementing a scheduled job to track and clean unused images');
-
     return { deleted, errors };
-  } catch (error) {
-    console.error('Error during orphaned images cleanup:', error);
-    errors.push(`Cleanup error: ${error}`);
+  } catch {
+    errors.push('Cleanup error');
     return { deleted, errors };
   }
 }

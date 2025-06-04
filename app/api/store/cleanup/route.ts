@@ -9,11 +9,6 @@ async function getAdminSession() {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user || session.user.role !== 'admin') {
-    console.log('Admin check failed:', {
-      hasSession: !!session,
-      hasUser: !!(session && session.user),
-      role: session?.user?.role,
-    });
     return null;
   }
   return session;
@@ -42,8 +37,7 @@ export async function POST() {
         errorCount: result.errors.length,
       },
     });
-  } catch (error) {
-    console.error('Error during image cleanup:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to cleanup images' }, { status: 500 });
   }
 }

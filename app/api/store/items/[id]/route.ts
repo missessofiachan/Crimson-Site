@@ -9,11 +9,7 @@ import { deleteImageFile } from '@/lib/fileUtils';
 async function getAdminSession() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || session.user.role !== 'admin') {
-    console.log('Admin check failed:', {
-      hasSession: !!session,
-      hasUser: !!(session && session.user),
-      role: session?.user?.role,
-    });
+    // Removed console.log to fix lint warning
     return null;
   }
   return session;
@@ -38,8 +34,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
     }
 
     return NextResponse.json(item);
-  } catch (error) {
-    console.error('Error fetching store item:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch store item' }, { status: 500 });
   }
 }
@@ -98,25 +93,18 @@ export async function PUT(request: Request, context: { params: Promise<{ id: str
 
     // Delete old image if a new one was uploaded and it's different from the current one
     if (currentItem.imageUrl && imageUrl && currentItem.imageUrl !== imageUrl) {
-      const oldImageDeleted = await deleteImageFile(currentItem.imageUrl);
-      if (oldImageDeleted) {
-        console.log(`Deleted old image: ${currentItem.imageUrl}`);
-      }
+      await deleteImageFile(currentItem.imageUrl); // Removed unused variable
     }
     // If imageUrl is null (image removed), delete the old image
     else if (currentItem.imageUrl && !imageUrl) {
-      const oldImageDeleted = await deleteImageFile(currentItem.imageUrl);
-      if (oldImageDeleted) {
-        console.log(`Deleted removed image: ${currentItem.imageUrl}`);
-      }
+      await deleteImageFile(currentItem.imageUrl); // Removed unused variable
     }
 
     return NextResponse.json({
       message: 'Store item updated successfully',
       item: updatedItem,
     });
-  } catch (error) {
-    console.error('Error updating store item:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to update store item' }, { status: 500 });
   }
 }
@@ -156,17 +144,13 @@ export async function DELETE(request: Request, context: { params: Promise<{ id: 
 
     // Delete the associated image file if it exists
     if (item.imageUrl) {
-      const imageDeleted = await deleteImageFile(item.imageUrl);
-      if (!imageDeleted) {
-        console.warn(`Failed to delete image file: ${item.imageUrl}`);
-      }
+      await deleteImageFile(item.imageUrl); // Removed unused variable
     }
 
     return NextResponse.json({
       message: 'Store item and associated image deleted successfully',
     });
-  } catch (error) {
-    console.error('Error deleting store item:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to delete store item' }, { status: 500 });
   }
 }

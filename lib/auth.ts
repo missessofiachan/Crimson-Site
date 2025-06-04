@@ -1,17 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-
-// Extend the Session type to include 'role' on user
-declare module 'next-auth' {
-  interface User {
-    role?: string;
-  }
-
-  interface Session {
-    user?: User;
-  }
-}
+import type { Session } from 'next-auth';
 
 /**
  * Custom hook to protect routes based on authentication or roles
@@ -59,7 +49,7 @@ export function useProtectedRoute(
  * @param session NextAuth session
  * @returns boolean indicating if user is admin
  */
-export function isAdmin(session: any) {
+export function isAdmin(session: Session | null | undefined) {
   return session?.user?.role === 'admin';
 }
 

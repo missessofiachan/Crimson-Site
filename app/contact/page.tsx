@@ -218,7 +218,7 @@ export default function ContactForm() {
 
         <button
           type="submit"
-          className={styles.submitButton}
+          className={loading ? `${styles.submitButton} ${styles.loading}` : styles.submitButton}
           disabled={loading}
           aria-busy={loading}
         >

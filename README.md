@@ -106,8 +106,6 @@ The application includes hardcoded setup keys for initial admin account creation
 - Admin setup page uses setup key: `crimson-initial-setup`
 - Admin creation API uses secret key: `crimson-admin-secret`
 
-> **Security Note**: In production, consider replacing hardcoded setup keys with environment variables for better security.
-
 ## Global Styles & Theming
 
 - Common layout, color, and utility classes are defined in `app/globals.css` for consistency across all pages.

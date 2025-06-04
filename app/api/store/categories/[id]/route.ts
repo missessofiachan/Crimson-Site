@@ -8,11 +8,7 @@ import { authOptions } from '@/lib/authOptions';
 async function getAdminSession() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || session.user.role !== 'admin') {
-    console.log('Admin check failed:', {
-      hasSession: !!session,
-      hasUser: !!(session && session.user),
-      role: session?.user?.role,
-    });
+    // Removed console.log to fix lint warning
     return null;
   }
   return session;
@@ -37,8 +33,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
     }
 
     return NextResponse.json({ category });
-  } catch (error) {
-    console.error('Error fetching category:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch category' }, { status: 500 });
   }
 }
@@ -101,8 +96,7 @@ export async function PUT(request: Request, context: { params: Promise<{ id: str
       message: 'Category updated successfully',
       category: { ...existingCategory, ...updateData },
     });
-  } catch (error) {
-    console.error('Error updating category:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to update category' }, { status: 500 });
   }
 }
@@ -151,8 +145,7 @@ export async function DELETE(request: Request, context: { params: Promise<{ id: 
       message: 'Category deleted successfully',
       productsUpdated: productsUsingCategory,
     });
-  } catch (error) {
-    console.error('Error deleting category:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to delete category' }, { status: 500 });
   }
 }

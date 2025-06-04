@@ -114,8 +114,7 @@ export default function EditStorePage({ params }: { params: Promise<{ id: string
       const data = await response.json();
       setUploadProgress(100);
       return data.fileUrl;
-    } catch (error) {
-      console.error('Upload error:', error);
+    } catch {
       setError('Error uploading image. Please try again.');
       setUploadProgress(0);
       return imageUrl;

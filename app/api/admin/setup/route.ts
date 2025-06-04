@@ -8,9 +8,9 @@ export async function POST(req: Request) {
   try {
     const { name, email, password, setupKey } = await req.json();
 
-    // Verify setup key - this is a simple security measure
-    // In production, use a more secure method and environment variable
-    if (setupKey !== 'crimson-initial-setup') {
+    // Verify setup key using environment variable for security
+    const validSetupKey = process.env.ADMIN_SETUP_KEY || 'crimson-initial-setup';
+    if (setupKey !== validSetupKey) {
       return NextResponse.json({ error: 'Invalid setup key' }, { status: 401 });
     }
 
@@ -49,8 +49,7 @@ export async function POST(req: Request) {
       message: 'Admin account created successfully',
       userId: result.insertedId,
     });
-  } catch (error) {
-    console.error('Admin setup error:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to create admin account' }, { status: 500 });
   }
 }

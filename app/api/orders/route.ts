@@ -21,8 +21,7 @@ export async function GET() {
       .toArray();
 
     return NextResponse.json({ orders });
-  } catch (error) {
-    console.error('Error fetching orders:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch orders' }, { status: 500 });
   }
 }
@@ -88,8 +87,7 @@ export async function POST(req: NextRequest) {
       },
       { status: 201 }
     );
-  } catch (error) {
-    console.error('Error creating order:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
   }
 }
